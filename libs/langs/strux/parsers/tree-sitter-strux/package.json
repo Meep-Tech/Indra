@@ -1,0 +1,22 @@
+{
+  "name": "tree-sitter-strux",
+  "version": "0.0.0",
+  "description": "Tree-sitter based StruX to AST parser",
+  "main": "src/grammar.js",
+  "scripts": {
+    "gen": "npx tsc && npx tree-sitter generate",
+    "gen-types": "npx tsc",
+    "gen-parser": "npx tree-sitter generate",
+    "test-parse": "npx tree-sitter parse .\\test\\test-parse.stx"
+  },
+  "author": "meep.tech",
+  "license": "MIT",
+  "dependencies": {
+    "nan": "^2.17.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.5.1",
+    "tree-sitter-cli": "^0.20.8",
+    "typescript": "^5.1.6"
+  }
+}
