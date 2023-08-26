@@ -42,7 +42,7 @@ enum TokenType
   INDENT,
   DEDENT,
   SAMEDENT,
-  NEWLINE,
+  END_OF_LINE,
 };
 
 /// @brief The indent data that is stored in the scanner's state
@@ -138,7 +138,7 @@ bool try_to_match_indentation_tokens(
 {
 
   const looking_for_indentation =
-      valid_symbols[NEWLINE] ||
+      valid_symbols[END_OF_LINE] ||
       valid_symbols[INDENT] ||
       valid_symbols[DEDENT] ||
       valid_symbols[SAMEDENT];
@@ -173,9 +173,9 @@ bool try_to_match_indentation_tokens(
         return true;
       }
 
-      if (valid_symbols[NEWLINE])
+      if (valid_symbols[END_OF_LINE])
       {
-        lexer->result_symbol = NEWLINE;
+        lexer->result_symbol = END_OF_LINE;
         return true;
       }
     }
@@ -207,7 +207,7 @@ bool scan_for_indentations(
       indent_length);
 }
 
-bool tree_sitter_strux_external_scanner_scan(
+bool tree_sitter_indentation_external_scanner_scan(
     void *payload,
     TSLexer *lexer,
     const bool *valid_symbols)
@@ -217,7 +217,7 @@ bool tree_sitter_strux_external_scanner_scan(
   return scan_for_indentations(scanner, lexer, valid_symbols);
 }
 
-unsigned tree_sitter_strux_external_scanner_serialize(void *payload,
+unsigned tree_sitter_indentation_external_scanner_serialize(void *payload,
                                                       char *buffer)
 {
   Scanner *scanner = (Scanner *)payload;
@@ -235,7 +235,7 @@ unsigned tree_sitter_strux_external_scanner_serialize(void *payload,
   return size;
 }
 
-void tree_sitter_strux_external_scanner_deserialize(
+void tree_sitter_indentation_external_scanner_deserialize(
     void *payload,
     const char *buffer,
     unsigned length)
@@ -256,15 +256,15 @@ void tree_sitter_strux_external_scanner_deserialize(
   }
 }
 
-void *tree_sitter_strux_external_scanner_create()
+void *tree_sitter_indentation_external_scanner_create()
 {
   Scanner *scanner = calloc(1, sizeof(Scanner));
   scanner->indents = new_indent_vec();
-  tree_sitter_strux_external_scanner_deserialize(scanner, NULL, 0);
+  tree_sitter_indentation_external_scanner_deserialize(scanner, NULL, 0);
   return scanner;
 }
 
-void tree_sitter_strux_external_scanner_destroy(void *payload)
+void tree_sitter_indentation_external_scanner_destroy(void *payload)
 {
   Scanner *scanner = (Scanner *)payload;
   VEC_FREE(scanner->indents);

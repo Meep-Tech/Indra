@@ -44,7 +44,12 @@ enum TokenType
   INDENT,
   DEDENT,
   SAMEDENT,
-  NEWLINE
+
+  NEWLINE,     // \n
+  END_OF_LINE, // [ \t]*\n
+  END_OF_FILE, // eof?
+
+  ERROR
 };
 
 typedef struct
@@ -126,131 +131,155 @@ bool scan_for_name(
   return false;
 }
 
-/// @brief Skip to the end of the whitespace
-/// @param lexer The lexer
-/// @param found_end_of_line True if the end of the line was found
-/// @param indent_length The length of the indentation
-void lex_to_end_of_whitespace(
-    TSLexer *lexer,
-    bool *found_end_of_line,
-    uint32_t *indent_length)
-{
-  *found_end_of_line = false;
-  *indent_length = 0;
-
-  for (;;)
-  {
-    if (lexer->lookahead == '\n')
-    {
-      *found_end_of_line = true;
-      *indent_length = 0;
-      skip(lexer);
-    }
-    else if (lexer->lookahead == ' ')
-    {
-      *indent_length++;
-      skip(lexer);
-    }
-    else if (lexer->lookahead == '\r' || lexer->lookahead == '\f')
-    {
-      *indent_length = 0;
-      skip(lexer);
-    }
-    else if (lexer->lookahead == '\t')
-    {
-      *indent_length += 8;
-      skip(lexer);
-    }
-    else if (lexer->eof(lexer))
-    {
-      *indent_length = 0;
-      *found_end_of_line = true;
-      break;
-    }
-    else
-    {
-      break;
-    }
-  }
-}
-
-/// @brief Try to match the indentation tokens
-bool try_to_match_indentation_tokens(
-    Scanner *scanner,
-    TSLexer *lexer,
-    const bool *valid_symbols,
-    bool found_end_of_line,
-    uint32_t indent_length)
-{
-
-  const looking_for_indentation =
-      valid_symbols[NEWLINE] ||
-      valid_symbols[INDENT] ||
-      valid_symbols[DEDENT] ||
-      valid_symbols[SAMEDENT];
-
-  if (found_end_of_line && looking_for_indentation)
-  {
-    if (scanner->indents.len > 0)
-    {
-      uint16_t current_indent_length =
-          VEC_BACK(scanner->indents);
-
-      if (valid_symbols[INDENT] &&
-          indent_length > current_indent_length)
-      {
-        VEC_PUSH(scanner->indents, indent_length);
-        lexer->result_symbol = INDENT;
-        return true;
-      }
-
-      if (valid_symbols[DEDENT] &&
-          indent_length < current_indent_length)
-      {
-        VEC_POP(scanner->indents);
-        lexer->result_symbol = DEDENT;
-        return true;
-      }
-
-      if (valid_symbols[SAMEDENT] &&
-          indent_length == current_indent_length)
-      {
-        lexer->result_symbol = SAMEDENT;
-        return true;
-      }
-
-      if (valid_symbols[NEWLINE])
-      {
-        lexer->result_symbol = NEWLINE;
-        return true;
-      }
-    }
-  }
-
-  return false;
-}
-
-/// @brief Use lookahead to count the indentation level
-/// @return True if the token was matched as an indent, dedent or samedent. This will also mean that the lexer->result_symbol will be set to the correct token type.
-bool scan_for_indentations(
+bool scan_for_whitespace(
     Scanner *scanner,
     TSLexer *lexer,
     const bool *valid_symbols)
 {
-  bool *found_end_of_line;
-  uint32_t *indent_length;
 
-  lex_to_end_of_whitespace(
-      lexer,
-      &found_end_of_line,
-      &indent_length);
+  const looking_for_indentation =
+      valid_symbols[INDENT] ||
+      valid_symbols[DEDENT] ||
+      valid_symbols[SAMEDENT];
 
-  return try_to_match_indentation_tokens(
-      scanner,
-      lexer,
-      valid_symbols,
-      found_end_of_line,
-      indent_length);
+  const looking_for_whitespace =
+      looking_for_indentation ||
+      valid_symbols[END_OF_LINE] ||
+      valid_symbols[NEWLINE] ||
+      valid_symbols[END_OF_FILE];
+
+  if (looking_for_whitespace)
+  {
+    int current_indent = 0;
+    bool found_whitespace = false;
+    int result_symbol = ERROR;
+
+    while (lexer->lookahead)
+    {
+      if (lexer->lookahead == '\n')
+      {
+        // EOL is most specific
+        if (valid_symbols[NEWLINE] &&
+            !found_whitespace)
+        {
+          advance(lexer);
+          result_symbol = NEWLINE;
+
+          break;
+        } // newline isnt as specific as EOL
+        else if (valid_symbols[END_OF_LINE])
+        {
+          advance(lexer);
+          result_symbol = END_OF_LINE;
+
+          break;
+        } // newlines reset the indent
+        else if (looking_for_indentation)
+        {
+          found_whitespace = true;
+          current_indent = 0;
+          advance(lexer);
+
+          continue;
+        } // not looking for anything that matches or allows for a newline
+        else
+        {
+          return false;
+        }
+      } // caridge return is ignored
+      else if (lexer->lookahead == '\r' || lexer->lookahead == '\f')
+      {
+        found_whitespace = true;
+        advance(lexer);
+
+        continue;
+      } // spaces and tabs are used for indentation
+      else if (lexer->lookahead == ' ' || lexer->lookahead == '\t')
+      {
+        // if were not looking for indentation, and we dont allow for EOL, then we dont allow for whitespace
+        if (!looking_for_indentation &&
+            !valid_symbols[END_OF_LINE])
+        {
+          return false;
+        }
+
+        // increase the indent
+        current_indent += lexer->lookahead == ' ' ? 1 : 2;
+        found_whitespace = true;
+
+        advance(lexer);
+
+        continue;
+      } // end of file breaks out of the loop
+      else if (lexer->eof(lexer))
+      {
+        // eof is most specific
+        if (valid_symbols[END_OF_FILE] &&
+            !found_whitespace)
+        {
+          advance(lexer);
+          result_symbol = END_OF_FILE;
+        } // end of file isnt as specific as EOL
+        else if (valid_symbols[END_OF_LINE])
+        {
+          advance(lexer);
+          result_symbol = END_OF_LINE;
+        } // newline is even less specific
+        else if (valid_symbols[NEWLINE] &&
+                 !found_whitespace)
+        {
+          advance(lexer);
+          result_symbol = NEWLINE;
+        } // indentation is least specific when it comes to eof
+        else if (looking_for_indentation)
+        {
+          current_indent = 0;
+          advance(lexer);
+        }
+
+        break;
+      } // anything else breaks out of the loop
+      else
+      {
+        break;
+      }
+    }
+
+    if (result_symbol == ERROR && looking_for_indentation)
+    {
+      int current_samedent = VEC_BACK(scanner->indents);
+
+      if (valid_symbols[INDENT] &&
+          current_indent > current_samedent)
+      {
+        VEC_PUSH(scanner->indents, current_indent);
+        result_symbol = INDENT;
+      }
+
+      if (valid_symbols[DEDENT] &&
+          current_indent < current_samedent)
+      {
+        VEC_POP(scanner->indents);
+        result_symbol = DEDENT;
+      }
+
+      if (valid_symbols[SAMEDENT] &&
+          current_indent == current_samedent)
+      {
+        result_symbol = SAMEDENT;
+      }
+    }
+
+    if (result_symbol != ERROR)
+    {
+      lexer->result_symbol = result_symbol;
+      lexer->mark_end(lexer);
+
+      return true;
+    }
+  }
+
+  return false;
 }
 
 bool tree_sitter_strux_external_scanner_scan(
@@ -260,12 +289,18 @@ bool tree_sitter_strux_external_scanner_scan(
 {
   Scanner *scanner = (Scanner *)payload;
 
-  if (scan_for_name(scanner, lexer, valid_symbols))
+  if (scan_for_name(
+          scanner,
+          lexer,
+          valid_symbols))
   {
     return true;
   }
 
-  return scan_for_indentations(scanner, lexer, valid_symbols);
+  return scan_for_whitespace(
+      scanner,
+      lexer,
+      valid_symbols);
 }
 
 unsigned tree_sitter_strux_external_scanner_serialize(

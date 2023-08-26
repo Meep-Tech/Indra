@@ -7,7 +7,7 @@ export class Attributes implements RuleSet {
 
   readonly attributes: RuleBuilder<Attributes & Whitespace> = $ => seq(
     $._attribute,
-    $._newline
+    $.newline
   );
 
   readonly _attribute: RuleBuilder<Attributes> = $ => //choice(

@@ -5,18 +5,16 @@ import { Whitespace } from "./symbols";
 export class Values implements RuleSet {
   readonly [key: string]: RuleBuilder | undefined;
 
-  readonly _inline_value: RuleBuilder<Literals & Whitespace>
-    = $ => seq(
-      $.literal,
-      // tags and aliases after the value (only allowed inline).
-      //optional(field('attributes_after', $._inline_attributes))
-    )
+  readonly inline_value: RuleBuilder<Literals & Whitespace>
+    = $ => $.literal
+  // tags and aliases after the value (only allowed inline).
+  //optional(field('attributes_after', $._inline_attributes))
 
-  readonly _multiline_value: RuleBuilder<Maps & Literals & Whitespace>
+  readonly multiline_value: RuleBuilder<Maps & Literals & Whitespace>
     = $ => prec.right(seq(
-      $.indent,
+      $._indent,
       choice(
-        $._multiline_map,
+        $.map,
         $.literal
       ),
     ))

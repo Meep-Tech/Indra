@@ -9,7 +9,8 @@
       "sources": [
         "bindings/node/binding.cc",
         "src/parser.c",
-        "src/scanner.c",
+        "src/strux-scanner.c",
+        "src/indent-scanner.c",
       ],
       "cflags_c": [
         "-std=c99",

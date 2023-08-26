@@ -5,7 +5,7 @@
       "type": "SYMBOL",
       "name": "_struct"
     },
-    "_newline": {
+    "newline": {
       "type": "SYMBOL",
       "name": "_newline_"
     },
@@ -23,11 +23,11 @@
         "value": "\\/[ \\t]\\/+"
       }
     },
-    "current_indent": {
+    "_current_indent": {
       "type": "SYMBOL",
       "name": "_samedent_"
     },
-    "indent": {
+    "_indent": {
       "type": "SYMBOL",
       "name": "_indent_"
     },
@@ -200,21 +200,42 @@
     },
     "map": {
       "type": "SYMBOL",
-      "name": "_multiline_map"
+      "name": "multiline_map"
     },
-    "_multiline_map": {
-      "type": "REPEAT1",
+    "multiline_map": {
+      "type": "PREC_RIGHT",
+      "value": 0,
       "content": {
-        "type": "SYMBOL",
-        "name": "_multiline_map_entry"
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "REPEAT1",
+            "content": {
+              "type": "SYMBOL",
+              "name": "multiline_map_entry"
+            }
+          },
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "_current_indent"
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
+          }
+        ]
       }
     },
-    "_multiline_map_entry": {
+    "multiline_map_entry": {
       "type": "SEQ",
       "members": [
         {
           "type": "SYMBOL",
-          "name": "current_indent"
+          "name": "_current_indent"
         },
         {
           "type": "ALIAS",
@@ -254,11 +275,11 @@
             "members": [
               {
                 "type": "SYMBOL",
-                "name": "_inline_value"
+                "name": "multiline_value"
               },
               {
                 "type": "SYMBOL",
-                "name": "_multiline_value"
+                "name": "inline_value"
               }
             ]
           }
@@ -283,16 +304,11 @@
         "value": ".*"
       }
     },
-    "_inline_value": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "literal"
-        }
-      ]
+    "inline_value": {
+      "type": "SYMBOL",
+      "name": "literal"
     },
-    "_multiline_value": {
+    "multiline_value": {
       "type": "PREC_RIGHT",
       "value": 0,
       "content": {
@@ -300,14 +316,14 @@
         "members": [
           {
             "type": "SYMBOL",
-            "name": "indent"
+            "name": "_indent"
           },
           {
             "type": "CHOICE",
             "members": [
               {
                 "type": "SYMBOL",
-                "name": "_multiline_map"
+                "name": "map"
               },
               {
                 "type": "SYMBOL",
@@ -319,11 +335,12 @@
       }
     },
     "literal": {
-      "type": "IMMEDIATE_TOKEN",
-      "content": {
-        "type": "PATTERN",
-        "value": ".*"
-      }
+      "type": "SYMBOL",
+      "name": "inline_literal"
+    },
+    "inline_literal": {
+      "type": "PATTERN",
+      "value": ".*"
     },
     "attributes": {
       "type": "SEQ",
@@ -334,7 +351,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "_newline"
+          "name": "newline"
         }
       ]
     },

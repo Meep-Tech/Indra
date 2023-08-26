@@ -7,7 +7,7 @@
     "gen": "npx tsc && npx tree-sitter generate",
     "gen-types": "npx tsc",
     "gen-parser": "npx tree-sitter generate",
-    "test-parse": "npx tree-sitter parse .\\test\\test-parse.stx"
+    "test-parse": "npx tree-sitter parse .\\test\\test-parse.stx --stat -d"
   },
   "author": "meep.tech",
   "license": "MIT",

@@ -7,16 +7,17 @@ export class Maps implements RuleSet {
   readonly [key: string]: RuleBuilder | undefined;
 
   readonly map: RuleBuilder<Maps>
-    = $ => $._multiline_map;
+    = $ => $.multiline_map;
 
-  readonly _multiline_map: RuleBuilder<Maps & Whitespace>
-    = $ => repeat1(
-      $._multiline_map_entry
-    );
+  readonly multiline_map: RuleBuilder<Maps & Whitespace>
+    = $ => prec.right(seq(
+      repeat1($.multiline_map_entry),
+      optional($._current_indent)
+    ));
 
-  readonly _multiline_map_entry: RuleBuilder<Maps & Whitespace>
+  readonly multiline_map_entry: RuleBuilder<Maps & Whitespace>
     = $ => seq(
-      $.current_indent,
+      $._current_indent,
       alias(
         $._multiline_map_named_entry,
         $.named_entry
@@ -34,8 +35,8 @@ export class Maps implements RuleSet {
     field(KEY, $.name),
     field(OPERATOR, $.assignment_operator),
     field(VALUE, choice(
-      $._inline_value,
-      $._multiline_value
+      $.multiline_value,
+      $.inline_value
     ))
   );
 }
