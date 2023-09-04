@@ -1,23 +1,25 @@
 import { Literals } from "./literals";
-import { Maps } from "./maps";
+import { Maps } from "./structures/maps";
 import { Whitespace } from "./symbols";
 
 export class Values implements RuleSet {
   readonly [key: string]: RuleBuilder | undefined;
 
-  readonly inline_value: RuleBuilder<Literals & Whitespace>
-    = $ => $.literal
-  // tags and aliases after the value (only allowed inline).
-  //optional(field('attributes_after', $._inline_attributes))
+  readonly _inline_value: RuleBuilder<Literals & Whitespace>
+    = $ => seq(
+      /[ \t]+/,
+      $._inline_literal,
+      $._line_ending
+    );
 
-  readonly multiline_value: RuleBuilder<Maps & Literals & Whitespace>
-    = $ => prec.right(seq(
-      $._indent,
+  readonly _child_value: RuleBuilder<Maps & Literals & Whitespace>
+    = $ => seq(
+      $._line_ending,
+      $._increase_indent,
       choice(
         $.map,
         $.literal
-      ),
-    ))
+      ))
 }
 
 export default Values;

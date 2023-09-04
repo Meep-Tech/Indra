@@ -1,0 +1,21 @@
+==================
+Single Entry Map
+==================
+
+key: value
+key: value
+
+---
+
+(src 
+  (map
+    (named_entry
+      key: (name)
+      operator: (assignment_operator)
+      value: (literal
+        (text)))
+    (named_entry
+      key: (name)
+      operator: (assignment_operator)
+      value: (literal
+        (text)))))

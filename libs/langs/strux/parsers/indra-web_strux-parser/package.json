@@ -1,0 +1,23 @@
+{
+  "name": "@indra-web/strux-parser",
+  "version": "0.1.0",
+  "description": "A simple tree-sitter based AST Parser for the Strux language used by Indra Web.",
+  "main": "src/lib.js",
+  "types": "src/lib.ts",
+  "author": "meep.tech",
+  "license": "MIT",
+  "scripts": {
+    "build": "npx tsc",
+    "parse": "node src/exe.js parse ",
+    "build+parse": "npm run build && npm run parse"
+  },
+  "devDependencies": {
+    "typescript": "latest",
+    "@types/node": "^20.5.7"
+  },
+  "dependencies": {
+    "tree-sitter": "^0.20.5",
+    "tree-sitter-strux": "file:../tree-sitter-strux",
+    "@meep-tech/utils": "file:../../../../../../../libs/utils/ts/meep-tech_utils"
+  }
+}

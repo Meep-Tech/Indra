@@ -1,0 +1,34 @@
+==================
+Single Entry Map and Multi-Entry Map
+==================
+
+key-a: 100
+key:
+  key-2: value
+  key-3: value2
+
+---
+
+(src
+  (map
+    (named_entry
+      key: (name)
+      operator: (assignment_operator)
+      value: (literal
+        (number
+          (integer))))
+    (named_entry
+      key: (name)
+      operator: (assignment_operator)
+      value: (
+        (map
+          (named_entry
+            key: (name)
+            operator: (assignment_operator)
+            value: (literal
+              (text)))
+          (named_entry
+            key: (name)
+            operator: (assignment_operator)
+            value: (literal
+              (text))))))))

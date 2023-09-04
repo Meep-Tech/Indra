@@ -1,24 +1,20 @@
-import { Literals } from "./literals";
-import { VALUE } from "./keys";
-import { Whitespace } from "./symbols";
-
 export class Attributes implements RuleSet {
   readonly [key: string]: RuleBuilder | undefined;
 
-  readonly attributes: RuleBuilder<Attributes & Whitespace> = $ => seq(
-    $._attribute,
-    $.newline
-  );
+  // readonly attributes: RuleBuilder<Attributes & Whitespace> = $ => seq(
+  //   $._attribute,
+  //   $.newline
+  // );
 
-  readonly _attribute: RuleBuilder<Attributes> = $ => //choice(
-    $.tag; //,
-  //$.alias,
-  //)
+  // readonly _attribute: RuleBuilder<Attributes> = $ => //choice(
+  //   $.tag; //,
+  // //$.alias,
+  // //)
 
-  readonly tag: RuleBuilder<Attributes & Literals> = $ => seq(
-    token.immediate('#'),
-    field(VALUE, $.literal)
-  );
+  // readonly tag: RuleBuilder<Attributes & Literals> = $ => seq(
+  //   token.immediate('#'),
+  //   field(VALUE, $.literal)
+  // );
 
   // readonly _inline_attributes: RuleBuilder<Attributes> = $ => alias(
   //   repeat1($._inline_attribute),

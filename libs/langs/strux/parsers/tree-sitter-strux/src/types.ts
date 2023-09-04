@@ -113,7 +113,7 @@ declare type ExternalRules = Readonly<{
  * - Use this to get rules from existing RuleSets.
  */
 declare type Rules<
-  TSets extends RuleSet = RuleSet,
+  TSets extends RuleSet<any> = RuleSet,
   TExternals extends ExternalRules = ExternalRules
 >
   = {
@@ -133,7 +133,7 @@ declare type Rules<
  */
 declare type RuleBuilder<
   TSources extends RuleSet<any> = any,
-  TExternals extends ExternalRules = ExternalRules
+  TExternals extends ExternalRules = any
 > = ($: Rules<TSources, TExternals>) => Rule;
 
 /**
@@ -154,7 +154,7 @@ declare type Config<TRules extends RuleSet, TExternals extends ExternalRules> = 
    */
   name: string;
 
-  /** 
+  /**
    * Mapping of grammar rule names to rule builder functions.
    */
   rules: TRules;
@@ -233,6 +233,98 @@ declare type Config<TRules extends RuleSet, TExternals extends ExternalRules> = 
    */
   word?: ($: Rules<TRules, TExternals>) => Rule;
 };
+
+class Grammar<
+  TExternals extends ExternalRules,
+  TRules extends RuleSet<TExternals> = RuleSet<TExternals>,
+  TExternalConstructors extends Readonly<(new () => TExternals)[]> = (new () => TExternals)[],
+  TRuleConstructors extends Readonly<(new () => TRules)[]> = (new () => TRules)[]
+> {
+  /** @see Config#name */
+  readonly name: string;
+
+  /** @see Config#rules */
+  readonly rules: InstanceType<TRuleConstructors[number]>;
+
+  /** @see Config#externals */
+  readonly externals: ($: Rules<TRules, TExternals>) => (TExternals[string])[];
+
+  /** @see Config#extras */
+  readonly extras: (($: Rules<TRules, TExternals>) => Rule[]) | [];
+
+  /** @see Config#inline */
+  readonly inline: (($: Rules<TRules, TExternals>) => Rule[]) | [];
+
+  /** @see Config#conflicts */
+  readonly conflicts: (($: Rules<TRules, TExternals>) => [Rule, Rule]) | [];
+
+  /** @see Config#supertypes */
+  readonly supertypes: (($: Rules<TRules, TExternals>) => Rule[]) | [];
+
+  /** @see Config#word */
+  readonly word: (($: Rules<TRules, TExternals>) => Rule) | [];
+
+  /** @alias word */
+  get words() { return this.word; }
+
+  /** @see Config#precedences */
+  readonly precedences: (() => string[][]) | [];
+
+  constructor({
+    name,
+    rules,
+    externals,
+    precedences,
+    extras,
+    inline,
+    conflicts,
+    supertypes,
+    word,
+    words
+  }: Readonly<Partial<Omit<Grammar<TExternals, TRules>, 'externals' | 'name' | 'rules'>> & {
+    name: string;
+    rules: TRuleConstructors | [];
+    externals?: TExternalConstructors | [];
+    words?: Grammar<TExternals, TRules>['word'],
+  }>) {
+    this.name = name;
+
+    const allRules = {} as InstanceType<TRuleConstructors[number]>;
+
+    for (const rule of rules) {
+      const ruleSet = new rule();
+      for (const key in ruleSet) {
+        if (ruleSet[key] instanceof Function) {
+          (allRules as TRules)[key] = ruleSet[key];
+        }
+      }
+    }
+
+    this.rules = allRules;
+
+    const getAllExternals = (() => {
+      const allExternals = [] as TExternals[string][];
+      for (const external of externals ?? []) {
+        const externalSet = new external();
+        for (const key in externalSet) {
+          if (!(externalSet[key] instanceof Function)) {
+            allExternals.push(externalSet[key]);
+          }
+        }
+      }
+
+      return allExternals;
+    }) as typeof this['externals'];
+
+    this.externals = getAllExternals;
+    this.precedences = precedences ?? [];
+    this.extras = extras ?? [];
+    this.inline = inline ?? [];
+    this.conflicts = conflicts ?? [];
+    this.supertypes = supertypes ?? [];
+    this.word = word ?? words ?? [];
+  }
+}
 
 /**
  * Creates a new language grammar with the provided schema.

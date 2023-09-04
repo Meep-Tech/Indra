@@ -1,79 +1,31 @@
 [
   {
-    "type": "accesability_affix",
+    "type": "empty",
     "named": true,
-    "fields": {
-      "type": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "internal_affix",
-            "named": true
-          },
-          {
-            "type": "private_affix",
-            "named": true
-          },
-          {
-            "type": "protected_affix",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
-    "type": "inline_value",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "literal",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "input_indicator",
-    "named": true,
-    "fields": {
-      "moddability_suffix": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "accesability_affix",
-            "named": true
-          }
-        ]
-      },
-      "visibility_prefix": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "accesability_affix",
-            "named": true
-          }
-        ]
-      }
-    }
+    "fields": {}
   },
   {
     "type": "literal",
     "named": true,
     "fields": {},
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": true,
       "types": [
         {
-          "type": "inline_literal",
+          "type": "empty",
+          "named": true
+        },
+        {
+          "type": "literal",
+          "named": true
+        },
+        {
+          "type": "number",
+          "named": true
+        },
+        {
+          "type": "text",
           "named": true
         }
       ]
@@ -84,60 +36,11 @@
     "named": true,
     "fields": {},
     "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "multiline_map",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "multiline_map",
-    "named": true,
-    "fields": {},
-    "children": {
       "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "multiline_map_entry",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "multiline_map_entry",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
+      "required": false,
       "types": [
         {
           "type": "named_entry",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "multiline_value",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "literal",
-          "named": true
-        },
-        {
-          "type": "map",
           "named": true
         }
       ]
@@ -173,15 +76,15 @@
         ]
       },
       "value": {
-        "multiple": false,
+        "multiple": true,
         "required": true,
         "types": [
           {
-            "type": "inline_value",
+            "type": "literal",
             "named": true
           },
           {
-            "type": "multiline_value",
+            "type": "map",
             "named": true
           }
         ]
@@ -189,9 +92,23 @@
     }
   },
   {
-    "type": "newline",
+    "type": "number",
     "named": true,
-    "fields": {}
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "decimal",
+          "named": true
+        },
+        {
+          "type": "integer",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "src",
@@ -202,6 +119,14 @@
       "required": true,
       "types": [
         {
+          "type": "empty",
+          "named": true
+        },
+        {
+          "type": "literal",
+          "named": true
+        },
+        {
           "type": "map",
           "named": true
         }
@@ -209,47 +134,19 @@
     }
   },
   {
-    "type": "tag",
-    "named": true,
-    "fields": {
-      "value": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "literal",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
-    "type": "#",
-    "named": false
-  },
-  {
     "type": "assignment_operator",
     "named": true
   },
   {
-    "type": "inline_literal",
+    "type": "decimal",
     "named": true
   },
   {
-    "type": "internal_affix",
+    "type": "integer",
     "named": true
   },
   {
-    "type": "private_affix",
-    "named": true
-  },
-  {
-    "type": "proc_indicator",
-    "named": true
-  },
-  {
-    "type": "protected_affix",
+    "type": "text",
     "named": true
   }
 ]

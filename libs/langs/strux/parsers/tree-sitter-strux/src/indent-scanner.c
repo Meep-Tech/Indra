@@ -42,7 +42,7 @@ enum TokenType
   INDENT,
   DEDENT,
   SAMEDENT,
-  END_OF_LINE,
+  LINE_ENDING,
 };
 
 /// @brief The indent data that is stored in the scanner's state
@@ -138,7 +138,7 @@ bool try_to_match_indentation_tokens(
 {
 
   const looking_for_indentation =
-      valid_symbols[END_OF_LINE] ||
+      valid_symbols[LINE_ENDING] ||
       valid_symbols[INDENT] ||
       valid_symbols[DEDENT] ||
       valid_symbols[SAMEDENT];
@@ -173,9 +173,9 @@ bool try_to_match_indentation_tokens(
         return true;
       }
 
-      if (valid_symbols[END_OF_LINE])
+      if (valid_symbols[LINE_ENDING])
       {
-        lexer->result_symbol = END_OF_LINE;
+        lexer->result_symbol = LINE_ENDING;
         return true;
       }
     }

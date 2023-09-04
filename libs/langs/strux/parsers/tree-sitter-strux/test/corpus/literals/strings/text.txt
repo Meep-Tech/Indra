@@ -1,0 +1,11 @@
+==================
+Plain Text Literal
+==================
+
+text
+
+---
+
+(src 
+  (literal 
+    (text)))

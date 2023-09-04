@@ -1,0 +1,12 @@
+==================
+Integer Number
+==================
+
+100
+
+---
+
+(src 
+  (literal 
+    (number 
+      (integer))))

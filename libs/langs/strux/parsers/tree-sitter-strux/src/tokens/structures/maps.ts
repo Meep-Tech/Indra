@@ -1,42 +1,41 @@
-import { KEY, Keys, OPERATOR, VALUE } from "./keys";
-import { Accessability, Assignments, Whitespace } from "./symbols";
-import { Modifiers } from "./symbols/modifiers";
-import { Values } from "./values";
+import { KEY, Keys, OPERATOR, VALUE } from "../keys";
+import { Assignments, Whitespace } from "../symbols";
+import { Values } from "../values";
 
 export class Maps implements RuleSet {
   readonly [key: string]: RuleBuilder | undefined;
 
   readonly map: RuleBuilder<Maps>
-    = $ => $.multiline_map;
+    = $ => $._multiline_map;
 
-  readonly multiline_map: RuleBuilder<Maps & Whitespace>
-    = $ => prec.right(seq(
-      repeat1($.multiline_map_entry),
-      optional($._current_indent)
-    ));
+  readonly _multiline_map: RuleBuilder<Maps & Whitespace>
+    = $ => prec.left(
+      seq(
+        $._multiline_map_entry,
+        repeat(seq(
+          $._multiline_map_entry,
+          $._current_indent
+        )),
+        optional(
+          seq($._line_ending, $._end_of_file)))
+    );
 
-  readonly multiline_map_entry: RuleBuilder<Maps & Whitespace>
-    = $ => seq(
-      $._current_indent,
-      alias(
-        $._multiline_map_named_entry,
-        $.named_entry
-      )
+  readonly _multiline_map_entry: RuleBuilder<Maps & Whitespace>
+    = $ => alias(
+      $._multiline_map_named_entry,
+      $.named_entry
     );
 
   readonly _multiline_map_named_entry: RuleBuilder<
-    Maps &
     Assignments &
-    Accessability &
     Keys &
-    Modifiers &
     Values
   > = $ => seq(
     field(KEY, $.name),
     field(OPERATOR, $.assignment_operator),
     field(VALUE, choice(
-      $.multiline_value,
-      $.inline_value
+      $._child_value,
+      $._inline_value
     ))
   );
 }

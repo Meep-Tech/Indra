@@ -1,4 +1,6 @@
 /src/**/*.js
 grammar.js
+!/src/lib.js
+
 node_modules
 build

@@ -1,0 +1,16 @@
+{
+  "name": "@indra-web/strux-highlighter",
+  "version": "0.1.0",
+  "description": "A simple hilighter for the StruX Language used by Indra-Web",
+  "main": "lib.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "meep.tech",
+  "license": "MIT",
+  "dependencies": {
+    "tree-sitter-strux": "file:../../parsers/tree-sitter-strux/",
+    "highlight-tree-sitter": "^1.0.0",
+    "tree-sitter": "^0.20.5"
+  }
+}

@@ -1,0 +1,13 @@
+==================
+Negative Number with Decimal
+==================
+
+-100.25
+
+---
+
+(src 
+  (literal 
+    (number
+      (integer)
+      (decimal))))

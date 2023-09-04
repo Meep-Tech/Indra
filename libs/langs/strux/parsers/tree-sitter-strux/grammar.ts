@@ -1,13 +1,13 @@
 import Attributes from "./src/tokens/attributes";
 import Keys from "./src/tokens/keys";
 import Literals from "./src/tokens/literals";
-import Maps from "./src/tokens/maps";
+import Maps from "./src/tokens/structures/maps";
 import Sources from "./src/tokens/sources";
-import Structs from "./src/tokens/structs";
+import Structs from "./src/tokens/structures/structs";
 import Accessability from "./src/tokens/symbols/accessability";
 import Assignments from "./src/tokens/symbols/assignment";
 import Modifiers from "./src/tokens/symbols/modifiers";
-import Whitespace from "./src/tokens/symbols/whitespace";
+import Whitespace from "./src/tokens/whitespace";
 import Values from "./src/tokens/values";
 
 /**
@@ -19,12 +19,22 @@ import Values from "./src/tokens/values";
 module.exports = grammar({
   name: 'strux',
 
+  extras: () => [],
+
   externals: $ => [
     $._name_,
+
     $._indent_,
     $._dedent_,
     $._samedent_,
-    $._newline_
+
+    $._newline_,
+    $._line_ending_,
+    $._end_of_file_,
+
+    $._multiline_spacing_,
+    $._inline_spacing_,
+    $._error_
   ],
 
   rules: {
@@ -44,5 +54,5 @@ module.exports = grammar({
     ...new Literals(),
 
     ...new Attributes(),
-  }
+  },
 });
