@@ -144,6 +144,14 @@ declare type RuleSet<TExternals extends ExternalRules = ExternalRules> = {
   readonly [key in string]: RuleBuilder<any, TExternals> | undefined
 }
 
+declare interface RuleSetClass<TExternals extends ExternalRules = ExternalRules> {
+  new(): RuleSet<TExternals>;
+}
+
+declare interface ExternalRuleClass {
+  new(): ExternalRules;
+}
+
 /**
  * A configuration object for creating a new Tree-sitter grammar.
  */
@@ -235,40 +243,40 @@ declare type Config<TRules extends RuleSet, TExternals extends ExternalRules> = 
 };
 
 class Grammar<
-  TExternals extends ExternalRules,
-  TRules extends RuleSet<TExternals> = RuleSet<TExternals>,
-  TExternalConstructors extends Readonly<(new () => TExternals)[]> = (new () => TExternals)[],
-  TRuleConstructors extends Readonly<(new () => TRules)[]> = (new () => TRules)[]
+  TRules extends RuleSetClass,
+  TExternals extends ExternalRuleClass,
+  TIRules extends InstanceType<TRules> = InstanceType<TRules>,
+  TIExternals extends InstanceType<TExternals> = InstanceType<TExternals>
 > {
   /** @see Config#name */
   readonly name: string;
 
   /** @see Config#rules */
-  readonly rules: InstanceType<TRuleConstructors[number]>;
+  readonly rules: TIRules;
 
   /** @see Config#externals */
-  readonly externals: ($: Rules<TRules, TExternals>) => (TExternals[string])[];
+  readonly externals: (($: Rules<TIRules, TIExternals>) => (TIExternals[string])[]) | undefined;
 
   /** @see Config#extras */
-  readonly extras: (($: Rules<TRules, TExternals>) => Rule[]) | [];
+  readonly extras: (($: Rules<TIRules, TIExternals>) => Rule[]) | undefined;
 
   /** @see Config#inline */
-  readonly inline: (($: Rules<TRules, TExternals>) => Rule[]) | [];
+  readonly inline: (($: Rules<TIRules, TIExternals>) => Rule[]) | undefined;
 
   /** @see Config#conflicts */
-  readonly conflicts: (($: Rules<TRules, TExternals>) => [Rule, Rule]) | [];
+  readonly conflicts: (($: Rules<TIRules, TIExternals>) => [Rule, Rule]) | undefined;
 
   /** @see Config#supertypes */
-  readonly supertypes: (($: Rules<TRules, TExternals>) => Rule[]) | [];
+  readonly supertypes: (($: Rules<TIRules, TIExternals>) => Rule[]) | undefined;
+
+  /** @see Config#precedences */
+  readonly precedences: (() => string[][]) | undefined;
 
   /** @see Config#word */
-  readonly word: (($: Rules<TRules, TExternals>) => Rule) | [];
+  readonly word: (($: Rules<TIRules, TIExternals>) => Rule) | undefined;
 
   /** @alias word */
   get words() { return this.word; }
-
-  /** @see Config#precedences */
-  readonly precedences: (() => string[][]) | [];
 
   constructor({
     name,
@@ -281,48 +289,52 @@ class Grammar<
     supertypes,
     word,
     words
-  }: Readonly<Partial<Omit<Grammar<TExternals, TRules>, 'externals' | 'name' | 'rules'>> & {
+  }: Readonly<Partial<Omit<Grammar<TRules, TExternals>, 'externals' | 'name' | 'rules'>> & {
     name: string;
-    rules: TRuleConstructors | [];
-    externals?: TExternalConstructors | [];
-    words?: Grammar<TExternals, TRules>['word'],
+    rules: TRules[] | [];
+    externals?: TExternals[] | [];
   }>) {
-    this.name = name;
+    this.name = name.toLowerCase();
 
-    const allRules = {} as InstanceType<TRuleConstructors[number]>;
+    const allRules = {} as TIRules;
 
     for (const rule of rules) {
       const ruleSet = new rule();
       for (const key in ruleSet) {
         if (ruleSet[key] instanceof Function) {
-          (allRules as TRules)[key] = ruleSet[key];
+          allRules[key as keyof TIRules] = ruleSet[key] as TIRules[keyof TIRules];
         }
       }
     }
 
     this.rules = allRules;
 
-    const getAllExternals = (() => {
-      const allExternals = [] as TExternals[string][];
-      for (const external of externals ?? []) {
-        const externalSet = new external();
-        for (const key in externalSet) {
-          if (!(externalSet[key] instanceof Function)) {
-            allExternals.push(externalSet[key]);
-          }
-        }
-      }
+    const getAllExternals
+      = externals === undefined
+        ? undefined
+        : (() => {
+          const allExternals = [] as TIExternals[string][];
 
-      return allExternals;
-    }) as typeof this['externals'];
+          for (const external of externals) {
+            const externalSet = new external();
+
+            for (const key in externalSet) {
+              if (!(externalSet[key] instanceof Function)) {
+                allExternals.push(externalSet[key] as TIExternals[string]);
+              }
+            }
+          }
+
+          return allExternals;
+        }) as typeof this['externals'];
 
     this.externals = getAllExternals;
-    this.precedences = precedences ?? [];
-    this.extras = extras ?? [];
-    this.inline = inline ?? [];
-    this.conflicts = conflicts ?? [];
-    this.supertypes = supertypes ?? [];
-    this.word = word ?? words ?? [];
+    this.precedences = precedences;
+    this.extras = extras;
+    this.inline = inline;
+    this.conflicts = conflicts;
+    this.supertypes = supertypes;
+    this.word = word ?? words;
   }
 }
 

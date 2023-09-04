@@ -18,15 +18,16 @@ import {
   EmptySpacing
 } from "./tokens/external";
 
-const StruX
+export const StruX
   = new Grammar({
-    name: 'strux',
+    name: 'StruX',
+    extras: () => [],
     externals: [
       Raws,
       Indentation,
       LineEndings,
       EmptySpacing
-    ] as const,
+    ],
     rules: [
       Sources,
 
@@ -44,7 +45,11 @@ const StruX
       Literals,
 
       Attributes,
-    ] as const,
+    ],
   });
 
-const rules = StruX.rules.;
+export default StruX;
+export {
+  StruX as Grammar,
+  StruX as GRAMMAR,
+}
