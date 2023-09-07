@@ -19,11 +19,6 @@ import { Grammar } from "./types";
 
 export const StruX
   = new Grammar({
-    _debug: {
-      showLogs: true,
-      showHiddenRules: true,
-      throwErrors: false,
-    },
     name: 'StruX',
     extras: () => [],
     externals: [

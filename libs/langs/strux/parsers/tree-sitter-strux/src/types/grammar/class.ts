@@ -4,6 +4,7 @@ export type DebugSettings = {
   showHiddenRules?: boolean;
   showLogs?: boolean;
   throwErrors?: boolean;
+  simpleTokenNames?: boolean;
 };
 
 export class Grammar<
@@ -50,53 +51,83 @@ export class Grammar<
     rules: TRules[] | [];
     externals?: TExternals[] | [];
   }>) {
-    // init debug?
-    const debug_showLogs = (_debug === true) || (typeof _debug === 'object' && _debug.showLogs);
-    const debug_showHiddenRules = (_debug === true) || (typeof _debug === 'object' && _debug.showHiddenRules);
-    const debug_throwErrors = typeof _debug === 'object' && _debug.throwErrors;
-    if (_debug) {
-      console.error(`Debugging Grammar: ${name} with Settings: ${JSON.stringify({ debug_showLogs, debug_showHiddenRules, debug_throwErrors })}`);
-    }
+    // init debug
+    let {
+      _debug_showHiddenRules,
+      _debug_showLogs,
+      _debug_throwErrors,
+      _debug_simpleTokenNames
+    }: {
+      _debug_showHiddenRules: boolean;
+      _debug_showLogs: boolean;
+      _debug_throwErrors: boolean;
+      _debug_simpleTokenNames: boolean;
+    } = _debug_init();
 
     // init grammar
     this.name = name.toLowerCase();
-    log("Compiling Grammar Definition for Language: " + name);
+    _debug_log("Compiling Grammar Definition for Language: " + name);
 
     // compile rules
-    log("Compiling Rules for Language: " + name.blue, { rules })
+    _debug_log("Compiling Rules for Language: " + name.blue, { rules })
     const allRules = {} as TIRules;
     for (const rule of rules) {
       try {
-        log("Building RuleSet: " + (rule?.name ?? 'undefined').blue);
+        _debug_log("Building RuleSet: " + (rule?.name ?? 'undefined').blue);
         const ruleSet = new rule();
 
         for (const key in ruleSet) {
-          log(`Checking if RuleSet Propery: ${key.yellow}, is a valid RuleBuilder`);
+          _debug_log(`Checking if RuleSet Propery: ${key.yellow}, is a valid RuleBuilder`);
           if (typeof key === 'string' && ruleSet[key] instanceof Function) {
             const ruleKey = key as keyof TIRules;
             let ruleBuilder = ruleSet[key] as RuleBuilder<any, any>;
 
             try {
-              if (debug_showHiddenRules && key.startsWith("_")) {
-                const alias = ('HIDDEN_' + key);
-                log(`Adding Hidden Rule: ${rule.name.blue}.${key.yellow} to Grammar as ${alias.yellow}`);
+              // if it's hidden, see if we're showing hidden/aliased rules.
+              if (_debug_showHiddenRules && key.startsWith("_")) {
+                let alias = _debug_simpleTokenNames ? `$.HIDDEN${key}` : `$['HIDDEN: ${key}']`
 
                 const currentRule = ruleBuilder.toString();
                 const ruleParts = currentRule.split("=>");
                 const ruleArgs = ruleParts[0].trim();
                 const ruleContent = ruleParts[1].trim();
-                const aliasedRule = `${ruleArgs} => alias(\n\t${ruleContent},\n\t$.${alias})`;
 
-                const newRule = new Function("return " + aliasedRule)();
-                ruleBuilder = newRule as RuleBuilder<any, any>;
+                // if the rule is already aliased we can't just unhide it... bad things will happen.
+                // ... instead we need to swap out the alias
+                let aliasedRule: string;
+                if (ruleContent.startsWith("alias")) {
+                  const contentParts = ruleContent.split(",");
+                  const aliasedContent = contentParts.slice(0, -1).join(",");
+                  const currentAlias = contentParts[contentParts.length - 1].split(")")[0].split(".")[1];
+                  alias = _debug_simpleTokenNames ? `$.${currentAlias}_ALIAS_OF:${key}` : `$['${currentAlias} ALIAS_OF:${key}']`;
+                  aliasedRule = `${ruleArgs} => ${aliasedContent},\n\t${alias})`
+                } else {
+                  aliasedRule = `${ruleArgs} => alias(\n\t${ruleContent},\n\t${alias})`;
+                }
+
+                _debug_log(`Adding Hidden Rule: ${rule.name.blue}.${key.yellow} to Grammar as ${alias.yellow}`);
+                try {
+                  const newRule = new Function("return " + aliasedRule)();
+                  ruleBuilder = newRule as RuleBuilder<any, any>;
+                } catch (e) {
+                  if (_debug_showLogs) {
+                    _debug_log("Unable to parse as a RuleSet: " + (rule?.name ?? 'undefined').red + ", due to Error: " + e!.toString().red, {
+                      old: "return " + ruleBuilder.toString().magenta,
+                      new: "return ".magenta + aliasedRule.magenta
+                    });
+                    if (_debug_throwErrors) {
+                      throw e;
+                    }
+                  }
+                }
               }
 
-              log(`Adding Rule: ${key.yellow} with RuleBuilder: \n\t`, { ruleBuilder: ruleBuilder.toString().magenta });
+              _debug_log(`Adding Rule: ${key.yellow} with RuleBuilder: \n\t`, { ruleBuilder: ruleBuilder.toString().magenta });
               allRules[ruleKey] = ruleBuilder as TIRules[keyof TIRules];
             } catch (e) {
-              if (debug_showLogs) {
-                log("Unable to parse as a RuleSet: " + (rule?.name ?? 'undefined').red + ", due to Error: " + e!.toString().red, { ruleBuilder: ruleBuilder.toString().magenta });
-                if (debug_throwErrors) {
+              if (_debug_showLogs) {
+                _debug_log("Unable to parse as a RuleSet: " + (rule?.name ?? 'undefined').red + ", due to Error: " + e!.toString().red, { ruleBuilder: ruleBuilder.toString().magenta });
+                if (_debug_throwErrors) {
                   throw e;
                 }
               }
@@ -104,9 +135,9 @@ export class Grammar<
           }
         }
       } catch (e) {
-        if (debug_showLogs) {
-          log("Unable to parse as a RuleSetClass: " + (rule?.name ?? 'undefined').red + ", due to Error: " + e!.toString().red, { rule });
-          if (debug_throwErrors) {
+        if (_debug_showLogs) {
+          _debug_log("Unable to parse as a RuleSetClass: " + (rule?.name ?? 'undefined').red + ", due to Error: " + e!.toString().red, { rule });
+          if (_debug_throwErrors) {
             throw e;
           }
         } else {
@@ -119,18 +150,18 @@ export class Grammar<
     let getExternalsLogic = externals === undefined ? "$ => [" : "$ => [\n"
     for (const external of externals ?? []) {
       try {
-        log("Building ExternalRules: " + (external?.name ?? 'undefined').cyan);
+        _debug_log("Building ExternalRules: " + (external?.name ?? 'undefined').cyan);
         const externalSet = new external();
 
         for (const key in externalSet) {
-          log(`Checking if ExternalRules Propery: ${key.yellow}, is a valid Rule`);
+          _debug_log(`Checking if ExternalRules Propery: ${key.yellow}, is a valid Rule`);
           if (!(externalSet[key] instanceof Function)) {
-            log(`Adding External: ${external.name.cyan}.${key.yellow} to Grammar`)
+            _debug_log(`Adding External: ${external.name.cyan}.${key.yellow} to Grammar`)
             getExternalsLogic += `$.${key},\n`;
           }
         }
       } catch (e) {
-        if (debug_showLogs) {
+        if (_debug_showLogs) {
           console.error(
             "Unable to parse as an ExternalRules set: "
             + (external?.name ?? 'undefined').red
@@ -138,7 +169,7 @@ export class Grammar<
             + e!.toString().red,
             { external }
           );
-          if (debug_throwErrors) {
+          if (_debug_throwErrors) {
             throw e;
           }
         } else {
@@ -149,7 +180,7 @@ export class Grammar<
 
     getExternalsLogic += "]";
     const getExternals = new Function("return " + getExternalsLogic)() as typeof this.externals;
-    log("Adding Externals Getter", { getExternals: getExternals!.toString().magenta });
+    _debug_log("Adding Externals Getter", { getExternals: getExternals!.toString().magenta });
 
     // set properties
     this.rules = allRules;
@@ -162,11 +193,50 @@ export class Grammar<
     this.word = word ?? words;
 
     // return grammar
-    return grammar(this as any) as any;
+    const result = grammar(this as any);
+    _debug_log(`Finished Building Tree Sitter Grammar for ${name}.`, { grammar: result })
+
+    return result as typeof this;
 
     /** @internal */
-    function log(text: string, value?: Object) {
-      if (debug_showLogs) {
+    function _debug_init() {
+      let _debug_showLogs: boolean = false;
+      let _debug_showHiddenRules: boolean = false;
+      let _debug_throwErrors: boolean = true;
+      let _debug_simpleTokenNames: boolean = true;
+
+      if (_debug === true) {
+        _debug_showHiddenRules = true;
+        _debug_showHiddenRules = true;
+        console.error(`Debugging Grammar: ${name} with Settings: ${JSON.stringify({ debug_showLogs: _debug_showLogs, debug_showHiddenRules: _debug_showHiddenRules, debug_throwErrors: _debug_throwErrors })}`);
+      } else if (_debug === false) {
+        _debug_throwErrors = false;
+        _debug_simpleTokenNames = false;
+      } else if (typeof _debug === 'object' && _debug !== null) {
+        _debug_showLogs = !!_debug.showLogs;
+        _debug_showHiddenRules = !!_debug.showHiddenRules;
+        _debug_throwErrors = !!_debug.throwErrors;
+        _debug_simpleTokenNames = !!_debug.simpleTokenNames;
+        console.error(`Debugging Grammar: ${name} with Settings: ${JSON.stringify({ debug_showLogs: _debug_showLogs, debug_showHiddenRules: _debug_showHiddenRules, debug_throwErrors: _debug_throwErrors })}`);
+      } else if (process?.env?.TREE_SITTER_DEBUG) {
+        _debug_showLogs = true;
+        _debug_showHiddenRules = true;
+        _debug_throwErrors = false;
+        _debug_simpleTokenNames = true;
+        console.error(`Debugging Grammar: ${name} with Settings: ${JSON.stringify({ debug_showLogs: _debug_showLogs, debug_showHiddenRules: _debug_showHiddenRules, debug_throwErrors: _debug_throwErrors })}`);
+      }
+
+      return {
+        _debug_showHiddenRules,
+        _debug_showLogs,
+        _debug_throwErrors,
+        _debug_simpleTokenNames
+      };
+    }
+
+    /** @internal */
+    function _debug_log(text: string, value?: Object) {
+      if (_debug_showLogs) {
         console.error("GRAMMAR::INIT:: - ".green + text, value ?? "");
       }
     }

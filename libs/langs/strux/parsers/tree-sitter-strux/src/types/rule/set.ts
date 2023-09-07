@@ -1,4 +1,4 @@
-declare type RuleSet<TExternals extends ExternalRules = ExternalRules> = {
+declare interface RuleSet<TExternals extends ExternalRules = ExternalRules> {
   readonly [key: string]: RuleBuilder<any, TExternals> | undefined;
 }
 

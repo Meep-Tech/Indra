@@ -1,2 +1,1 @@
-export * from './prec'
-export * from './precs'
+export * from './class'

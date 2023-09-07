@@ -1,4 +1,4 @@
-import { KEY, Keys, OPERATOR, VALUE } from "../keys";
+import { Keys } from "../keys";
 import { Assignments, Whitespace } from "../symbols";
 import { Values } from "../values";
 
@@ -31,9 +31,9 @@ export class Maps implements RuleSet {
     Keys &
     Values
   > = $ => seq(
-    field(KEY, $.name),
-    field(OPERATOR, $.assignment_operator),
-    field(VALUE, choice(
+    field(KEYS.KEY, $.name),
+    field(KEYS.OPERATOR, $.assignment_operator),
+    field(KEYS.VALUE, choice(
       $._child_value,
       $._inline_value
     ))
