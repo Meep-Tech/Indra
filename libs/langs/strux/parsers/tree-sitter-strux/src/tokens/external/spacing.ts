@@ -1,4 +1,3 @@
-
 export class EmptySpacing implements ExternalRules {
   readonly [key: string]: Token | undefined;
 

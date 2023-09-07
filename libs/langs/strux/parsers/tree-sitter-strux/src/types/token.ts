@@ -92,5 +92,6 @@ declare type Token
   Repeat1Token |
   RepeatToken |
   SeqToken |
+  ExternalToken |
   StringToken |
   SymbolToken<string>;

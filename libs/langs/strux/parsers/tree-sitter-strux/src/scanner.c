@@ -9,11 +9,14 @@
 #pragma region Debugging
 
 // Toggle for Debugging:
-#define DEBUG true
+#define LOGGING true
 
 // Logging Macro (Debug mode only)
-#if DEBUG
-#define LOG(K, M, ...) fprintf(stderr, K " - " M "\n", ##__VA_ARGS__)
+#if LOGGING
+#define LOG(K, M, ...)                                                         \
+  if (getenv("TREE_SITTER_DEBUG")) {                                           \
+    fprintf(stdout, K " - " M "\n", ##__VA_ARGS__);                            \
+  };
 #else
 #define LOG(...)                                                               \
   do {                                                                         \
@@ -99,6 +102,7 @@ enum TokenType {
   LINE_ENDING, // [ \t]*\n
   END_OF_FILE, // eof
 
+  // TODO: implement or remove
   MULTILINE_SPACING, // [ \t\n]*
   INLINE_SPACING,    // [ \t]+
 
@@ -288,6 +292,30 @@ bool scan_for_whitespace(Scanner *scanner, TSLexer *lexer,
   if (looking_for_whitespace) {
     LOG("WHITESPACE::START", "Scanning for _whitespace_.");
 
+    if (!lexer->lookahead) {
+      LOG("WHITESPACE::PEEK", "Found EOF while looking for _whitespace_");
+      if (valid_symbols[END_OF_FILE]) {
+        LOG("WHITESPACE::FOUND",
+            "Successfully found _end of file_ while looking "
+            "for _whitespace_");
+
+        lexer->result_symbol = END_OF_FILE;
+        return true;
+      } else if (valid_symbols[LINE_ENDING]) {
+        LOG("WHITESPACE::FOUND",
+            "Successfully found _line_ending_ while looking "
+            "for _whitespace_");
+
+        lexer->result_symbol = LINE_ENDING;
+        return true;
+      } else {
+        LOG("WHITESPACE::FAILED",
+            "Unexpected EOF while looking for non breaking _whitespace_");
+
+        return false;
+      }
+    }
+
     int current_indent = 0;
     bool found_whitespace = false;
     bool found_carridge_return_part = false;
@@ -314,12 +342,11 @@ bool scan_for_whitespace(Scanner *scanner, TSLexer *lexer,
 
           result_symbol = LINE_ENDING;
         } // newline is even less specific
-        else if (valid_symbols[NEWLINE] && !found_whitespace) {
-          LOG("WHITESPACE::FOUND", "Successfully found _newline_ while looking "
-                                   "for _whitespace_");
-
-          result_symbol = NEWLINE;
-        } // indentation is least specific when it comes to eof
+        // else if (valid_symbols[NEWLINE] && !found_whitespace) {
+        //   LOG("WHITESPACE::FOUND", "Successfully found _newline_ while"
+        //   "looking for _whitespace_");
+        //   result_symbol = NEWLINE;
+        // } // indentation is least specific when it comes to eof
         else if (looking_for_indentation) {
           // TODO: try having this return false if we cant get indents to work
           // with eof.
@@ -371,7 +398,7 @@ bool scan_for_whitespace(Scanner *scanner, TSLexer *lexer,
           }
 
           LOG("WHITESPACE::FOUND",
-              "Successfully found a _line ending_ while looking "
+              "Successfully found a _line_ending_ while looking "
               "for _whitespace_");
           break;
         } // newlines reset the indent
@@ -493,7 +520,6 @@ bool scan_for_whitespace(Scanner *scanner, TSLexer *lexer,
 
     if (result_symbol != ERROR) {
       lexer->result_symbol = result_symbol;
-      mark(lexer);
 
       return true;
     }

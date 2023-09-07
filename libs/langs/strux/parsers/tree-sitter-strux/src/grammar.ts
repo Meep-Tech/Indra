@@ -9,17 +9,21 @@ import {
   Literals,
   Attributes,
   Maps,
-  Structs
-} from "./tokens";
-import {
+  Structs,
   Raws,
   Indentation,
   LineEndings,
   EmptySpacing
-} from "./tokens/external";
+} from "./tokens";
+import { Grammar } from "./types";
 
 export const StruX
   = new Grammar({
+    _debug: {
+      showLogs: true,
+      showHiddenRules: true,
+      throwErrors: false,
+    },
     name: 'StruX',
     extras: () => [],
     externals: [

@@ -278,8 +278,12 @@
         "type": "CHOICE",
         "members": [
           {
-            "type": "SYMBOL",
-            "name": "_inline_number"
+            "type": "PREC",
+            "value": 1,
+            "content": {
+              "type": "SYMBOL",
+              "name": "_inline_number"
+            }
           },
           {
             "type": "SYMBOL",
@@ -420,10 +424,6 @@
     {
       "type": "SYMBOL",
       "name": "_inline_spacing_"
-    },
-    {
-      "type": "SYMBOL",
-      "name": "_error_"
     }
   ],
   "inline": [],

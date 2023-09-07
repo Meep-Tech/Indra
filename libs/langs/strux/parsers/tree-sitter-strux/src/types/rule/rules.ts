@@ -1,10 +1,4 @@
 /**
- * A token or literal used to define a grammar rule.
- */
-declare type Rule
-  = Token | RegExp | string;
-
-/**
  * A set of existing grammar rules.
  * - Use this to get rules from existing RuleSets.
  */
@@ -23,3 +17,9 @@ declare type Rules<
     ? ReturnType<TSets[key]>
     : undefined
   };
+
+/**
+ * A token or literal used to define a grammar rule.
+ */
+declare type Rule
+  = Token | RegExp | string;

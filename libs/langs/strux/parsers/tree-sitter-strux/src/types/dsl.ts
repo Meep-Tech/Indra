@@ -135,7 +135,7 @@ declare function sym<Name extends string>(
  */
 declare const prec: {
   (
-    precedence: number,
+    precedence: number | Number,
     rule: Rule
   ): PrecToken;
 
@@ -154,7 +154,7 @@ declare const prec: {
      */
   left: {
     (
-      precedence: number,
+      precedence: number | Number,
       rule: Rule
     ): PrecLeftToken;
     (
@@ -177,7 +177,7 @@ declare const prec: {
      */
   right: {
     (
-      precedence: number,
+      precedence: number | Number,
       rule: Rule
     ): PrecRightToken;
     (
@@ -202,7 +202,7 @@ declare const prec: {
      */
   dynamic: {
     (
-      precedence: number,
+      precedence: number | Number,
       rule: Rule
     ): PrecDynamicToken;
   };

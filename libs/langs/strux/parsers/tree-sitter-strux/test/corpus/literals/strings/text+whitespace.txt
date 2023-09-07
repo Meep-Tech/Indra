@@ -6,6 +6,6 @@ text with whitespace
 
 ---
 
-(src 
-  (literal 
+(src
+  (literal
     (text)))

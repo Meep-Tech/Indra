@@ -1,6 +1,4 @@
-import Indentation from "./external/indentation";
-import { LineEndings } from "./external/line-endings";
-import { EmptySpacing } from "./external/spacing";
+import { Indentation, LineEndings, EmptySpacing } from "./external";
 
 export class Whitespace implements RuleSet<Indentation | LineEndings | EmptySpacing> {
   readonly [key: string]: RuleBuilder<{}, any> | undefined;

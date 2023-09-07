@@ -1,4 +1,12 @@
-class Grammar<
+import 'colors';
+
+export type DebugSettings = {
+  showHiddenRules?: boolean;
+  showLogs?: boolean;
+  throwErrors?: boolean;
+};
+
+export class Grammar<
   TRules extends RuleSetClass,
   TExternals extends ExternalRuleClass,
   TIRules extends InstanceType<TRules> = InstanceType<TRules>,
@@ -35,51 +43,134 @@ class Grammar<
   get words() { return this.word; }
 
   constructor({
-    name, rules, externals, precedences, extras, inline, conflicts, supertypes, word, words
+    name, rules, externals, precedences, extras, inline, conflicts, supertypes, word, words, _debug
   }: Readonly<Partial<Omit<Grammar<TRules, TExternals>, 'externals' | 'name' | 'rules'>> & {
+    _debug?: boolean | DebugSettings
     name: string;
     rules: TRules[] | [];
     externals?: TExternals[] | [];
   }>) {
+    // init debug?
+    const debug_showLogs = (_debug === true) || (typeof _debug === 'object' && _debug.showLogs);
+    const debug_showHiddenRules = (_debug === true) || (typeof _debug === 'object' && _debug.showHiddenRules);
+    const debug_throwErrors = typeof _debug === 'object' && _debug.throwErrors;
+    if (_debug) {
+      console.error(`Debugging Grammar: ${name} with Settings: ${JSON.stringify({ debug_showLogs, debug_showHiddenRules, debug_throwErrors })}`);
+    }
+
+    // init grammar
     this.name = name.toLowerCase();
+    log("Compiling Grammar Definition for Language: " + name);
 
+    // compile rules
+    log("Compiling Rules for Language: " + name.blue, { rules })
     const allRules = {} as TIRules;
-
     for (const rule of rules) {
-      const ruleSet = new rule();
-      for (const key in ruleSet) {
-        if (ruleSet[key] instanceof Function) {
-          allRules[key as keyof TIRules] = ruleSet[key] as TIRules[keyof TIRules];
+      try {
+        log("Building RuleSet: " + (rule?.name ?? 'undefined').blue);
+        const ruleSet = new rule();
+
+        for (const key in ruleSet) {
+          log(`Checking if RuleSet Propery: ${key.yellow}, is a valid RuleBuilder`);
+          if (typeof key === 'string' && ruleSet[key] instanceof Function) {
+            const ruleKey = key as keyof TIRules;
+            let ruleBuilder = ruleSet[key] as RuleBuilder<any, any>;
+
+            try {
+              if (debug_showHiddenRules && key.startsWith("_")) {
+                const alias = ('HIDDEN_' + key);
+                log(`Adding Hidden Rule: ${rule.name.blue}.${key.yellow} to Grammar as ${alias.yellow}`);
+
+                const currentRule = ruleBuilder.toString();
+                const ruleParts = currentRule.split("=>");
+                const ruleArgs = ruleParts[0].trim();
+                const ruleContent = ruleParts[1].trim();
+                const aliasedRule = `${ruleArgs} => alias(\n\t${ruleContent},\n\t$.${alias})`;
+
+                const newRule = new Function("return " + aliasedRule)();
+                ruleBuilder = newRule as RuleBuilder<any, any>;
+              }
+
+              log(`Adding Rule: ${key.yellow} with RuleBuilder: \n\t`, { ruleBuilder: ruleBuilder.toString().magenta });
+              allRules[ruleKey] = ruleBuilder as TIRules[keyof TIRules];
+            } catch (e) {
+              if (debug_showLogs) {
+                log("Unable to parse as a RuleSet: " + (rule?.name ?? 'undefined').red + ", due to Error: " + e!.toString().red, { ruleBuilder: ruleBuilder.toString().magenta });
+                if (debug_throwErrors) {
+                  throw e;
+                }
+              }
+            }
+          }
+        }
+      } catch (e) {
+        if (debug_showLogs) {
+          log("Unable to parse as a RuleSetClass: " + (rule?.name ?? 'undefined').red + ", due to Error: " + e!.toString().red, { rule });
+          if (debug_throwErrors) {
+            throw e;
+          }
+        } else {
+          throw e;
         }
       }
     }
 
-    this.rules = allRules;
+    // compile externals
+    let getExternalsLogic = externals === undefined ? "$ => [" : "$ => [\n"
+    for (const external of externals ?? []) {
+      try {
+        log("Building ExternalRules: " + (external?.name ?? 'undefined').cyan);
+        const externalSet = new external();
 
-    const getAllExternals = externals === undefined
-      ? undefined
-      : (() => {
-        const allExternals = [] as TIExternals[string][];
-
-        for (const external of externals) {
-          const externalSet = new external();
-
-          for (const key in externalSet) {
-            if (!(externalSet[key] instanceof Function)) {
-              allExternals.push(externalSet[key] as TIExternals[string]);
-            }
+        for (const key in externalSet) {
+          log(`Checking if ExternalRules Propery: ${key.yellow}, is a valid Rule`);
+          if (!(externalSet[key] instanceof Function)) {
+            log(`Adding External: ${external.name.cyan}.${key.yellow} to Grammar`)
+            getExternalsLogic += `$.${key},\n`;
           }
         }
+      } catch (e) {
+        if (debug_showLogs) {
+          console.error(
+            "Unable to parse as an ExternalRules set: "
+            + (external?.name ?? 'undefined').red
+            + ", due to Error: "
+            + e!.toString().red,
+            { external }
+          );
+          if (debug_throwErrors) {
+            throw e;
+          }
+        } else {
+          throw e;
+        }
+      }
+    }
 
-        return allExternals;
-      }) as typeof this['externals'];
+    getExternalsLogic += "]";
+    const getExternals = new Function("return " + getExternalsLogic)() as typeof this.externals;
+    log("Adding Externals Getter", { getExternals: getExternals!.toString().magenta });
 
-    this.externals = getAllExternals;
+    // set properties
+    this.rules = allRules;
+    this.externals = getExternals;
     this.precedences = precedences;
     this.extras = extras;
     this.inline = inline;
     this.conflicts = conflicts;
     this.supertypes = supertypes;
     this.word = word ?? words;
+
+    // return grammar
+    return grammar(this as any) as any;
+
+    /** @internal */
+    function log(text: string, value?: Object) {
+      if (debug_showLogs) {
+        console.error("GRAMMAR::INIT:: - ".green + text, value ?? "");
+      }
+    }
   }
 }
+
+export default Grammar;

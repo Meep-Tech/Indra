@@ -1,3 +1,5 @@
+import { PRECS } from "../rules/precedence";
+
 export class Literals implements RuleSet {
   readonly [key: string]: RuleBuilder | undefined;
 
@@ -13,10 +15,10 @@ export class Literals implements RuleSet {
       $.literal
     );
 
-  readonly _inline_literal: RuleBuilder
+  readonly _inline_literal: RuleBuilder<Literals>
     = $ => alias(
       choice(
-        $._inline_number,
+        prec(PRECS.HIGH.weight, $._inline_number),
         $._inline_text,
         $._inline_empty,
       ),

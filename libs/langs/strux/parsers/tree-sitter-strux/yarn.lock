@@ -4,29 +4,34 @@
 
 "@types/cson@^7.20.1":
   version "7.20.1"
-  resolved "https://registry.yarnpkg.com/@types/cson/-/cson-7.20.1.tgz#bc14c04edbfbc06aa7b3fce3f02eb1adee3d17df"
+  resolved "https://registry.npmjs.org/@types/cson/-/cson-7.20.1.tgz"
   integrity sha512-MSa3Nkti2/dXO+5FZrQTBhs963m4RYCi46dny3OArUH/NOBykNIJ2I02X933Km5Kz1/cwGP8Cq6NidVGyyiXqw==
 
 "@types/node@^20.5.1":
-  version "20.5.9"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-20.5.9.tgz#a70ec9d8fa0180a314c3ede0e20ea56ff71aed9a"
-  integrity sha512-PcGNd//40kHAS3sTlzKB9C9XL4K0sTup8nbG5lC14kzEteTNuAFh9u5nA0o5TWnSG2r/JNPRXFVcHJIIeRlmqQ==
+  version "20.5.1"
+  resolved "https://registry.npmjs.org/@types/node/-/node-20.5.1.tgz"
+  integrity sha512-4tT2UrL5LBqDwoed9wZ6N3umC4Yhz3W3FloMmiiG4JwmUJWpie0c7lcnUNd4gtMKuDEO4wRVS8B6Xa0uMRsMKg==
 
 coffeescript@1.12.7:
   version "1.12.7"
-  resolved "https://registry.yarnpkg.com/coffeescript/-/coffeescript-1.12.7.tgz#e57ee4c4867cf7f606bfc4a0f2d550c0981ddd27"
+  resolved "https://registry.npmjs.org/coffeescript/-/coffeescript-1.12.7.tgz"
   integrity sha512-pLXHFxQMPklVoEekowk8b3erNynC+DVJzChxS/LCBBgR6/8AJkHivkm//zbowcfc7BTCAjryuhx6gPqPRfsFoA==
+
+colors@^1.4.0:
+  version "1.4.0"
+  resolved "https://registry.npmjs.org/colors/-/colors-1.4.0.tgz"
+  integrity sha512-a+UqTh4kgZg/SlGvfbzDHpgRu7AAQOmmqRHJnxhRZICKFUT91brVhNNt58CMWU9PsBbv3PDCZUHbVxuDiH2mtA==
 
 cson-parser@^4.0.5:
   version "4.0.9"
-  resolved "https://registry.yarnpkg.com/cson-parser/-/cson-parser-4.0.9.tgz#eef0cf77edd057f97861ef800300c8239224eedb"
+  resolved "https://registry.npmjs.org/cson-parser/-/cson-parser-4.0.9.tgz"
   integrity sha512-I79SAcCYquWnEfXYj8hBqOOWKj6eH6zX1hhX3yqmS4K3bYp7jME3UFpHPzu3rUew0oyfc0s8T6IlWGXRAheHag==
   dependencies:
     coffeescript "1.12.7"
 
 cson@^7.20.0:
   version "7.20.0"
-  resolved "https://registry.yarnpkg.com/cson/-/cson-7.20.0.tgz#638f7ef2bd108151484d6f6613ae2717b4156226"
+  resolved "https://registry.npmjs.org/cson/-/cson-7.20.0.tgz"
   integrity sha512-K7g/86vC77mJqi6PRFhd3p8U/y0R6SsCeTJb5RpOAaQdApHxCoK5JwfZ8WeJjpOZ6lyyi8tNvh3UuC184H3GWg==
   dependencies:
     cson-parser "^4.0.5"
@@ -36,14 +41,14 @@ cson@^7.20.0:
 
 eachr@^4.5.0:
   version "4.5.0"
-  resolved "https://registry.yarnpkg.com/eachr/-/eachr-4.5.0.tgz#495eb3aab6a41811da1e04e510424df32075cf04"
+  resolved "https://registry.npmjs.org/eachr/-/eachr-4.5.0.tgz"
   integrity sha512-9I664RWp6p8jvcHZIwo7bWaiSaUmA1wNSLKwNZEiaYjqiTARq3cGjyRiIunsopZv4QMmX3T5Hs17QoPAzdYxfg==
   dependencies:
     typechecker "^6.2.0"
 
 extract-opts@^4.3.0:
   version "4.3.0"
-  resolved "https://registry.yarnpkg.com/extract-opts/-/extract-opts-4.3.0.tgz#ee0a797249abb77e449bdaaba66ebeff4775505e"
+  resolved "https://registry.npmjs.org/extract-opts/-/extract-opts-4.3.0.tgz"
   integrity sha512-Dmssi1tgKJkQsVmbP7TgW/kbdc42SAsNf6h9ClweP+dS7O24YYMTXsNwPelxhx0LF15npiWwY5ahKtyQiNgxWA==
   dependencies:
     eachr "^4.5.0"
@@ -51,37 +56,37 @@ extract-opts@^4.3.0:
 
 graceful-fs@^4.2.6:
   version "4.2.11"
-  resolved "https://registry.yarnpkg.com/graceful-fs/-/graceful-fs-4.2.11.tgz#4183e4e8bf08bb6e05bbb2f7d2e0c8f712ca40e3"
+  resolved "https://registry.npmjs.org/graceful-fs/-/graceful-fs-4.2.11.tgz"
   integrity sha512-RbJ5/jmFcNNCcDV5o9eTnBLJ/HszWV0P73bc+Ff4nS/rJj+YaS6IGyiOL0VoBYX+l1Wrl3k63h/KrH+nhJ0XvQ==
 
 nan@^2.17.0:
   version "2.17.0"
-  resolved "https://registry.yarnpkg.com/nan/-/nan-2.17.0.tgz#c0150a2368a182f033e9aa5195ec76ea41a199cb"
+  resolved "https://registry.npmjs.org/nan/-/nan-2.17.0.tgz"
   integrity sha512-2ZTgtl0nJsO0KQCjEpxcIr5D+Yv90plTitZt9JBfQvVJDS5seMl3FOvsh3+9CoYWXf/1l5OaZzzF6nDm4cagaQ==
 
 requirefresh@^4.12.0:
   version "4.13.0"
-  resolved "https://registry.yarnpkg.com/requirefresh/-/requirefresh-4.13.0.tgz#bd4edaf45bf0194cbccecbc444794d1012604f21"
+  resolved "https://registry.npmjs.org/requirefresh/-/requirefresh-4.13.0.tgz"
   integrity sha512-APrzWWxqnwE2Bz3ysFepAU0Dc0aYjn8jsDLFIegedn+KVCS9LykAclkf+6YaJXk3ON9l6QAm04rN+bEA89cGIg==
 
 safefs@^6.12.0:
   version "6.16.0"
-  resolved "https://registry.yarnpkg.com/safefs/-/safefs-6.16.0.tgz#e1901c0ea1e8926289bd8d5383a65ce21bb44d2f"
+  resolved "https://registry.npmjs.org/safefs/-/safefs-6.16.0.tgz"
   integrity sha512-IUIN5h+r2acNVkbsM5VoBUsRnaSFwQFZnzyvQsiLlgFsncLi7rrtmM4FsEgwv+xDTJzsrp79rd+/GJu2zWcR9w==
   dependencies:
     graceful-fs "^4.2.6"
 
 tree-sitter-cli@^0.20.8:
   version "0.20.8"
-  resolved "https://registry.yarnpkg.com/tree-sitter-cli/-/tree-sitter-cli-0.20.8.tgz#06a81cea8d6d82f93d67eed7d28b6bc04a4a8916"
+  resolved "https://registry.npmjs.org/tree-sitter-cli/-/tree-sitter-cli-0.20.8.tgz"
   integrity sha512-XjTcS3wdTy/2cc/ptMLc/WRyOLECRYcMTrSWyhZnj1oGSOWbHLTklgsgRICU3cPfb0vy+oZCC33M43u6R1HSCA==
 
 typechecker@^6.2.0:
   version "6.4.0"
-  resolved "https://registry.yarnpkg.com/typechecker/-/typechecker-6.4.0.tgz#c087dc744c5a0f17524d58a17eb31a9660ab7324"
+  resolved "https://registry.npmjs.org/typechecker/-/typechecker-6.4.0.tgz"
   integrity sha512-EbOu+9szY13mhl0EsvLXnR+pTCa3gTHQQPLdce72ujcC9fRHXlVFBNXtHeRhgzLxLlKUh4zA9C0tezLDgshf+A==
 
 typescript@^5.1.6:
-  version "5.2.2"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-5.2.2.tgz#5ebb5e5a5b75f085f22bc3f8460fba308310fa78"
-  integrity sha512-mI4WrpHsbCIcwT9cF4FZvr80QUeKvsUsUvKDoR+X/7XHQH98xYD8YHZg7ANtz2GtZt/CBq2QJ0thkGJMHfqc1w==
+  version "5.1.6"
+  resolved "https://registry.npmjs.org/typescript/-/typescript-5.1.6.tgz"
+  integrity sha512-zaWCozRZ6DLEWAWFrVDz1H6FVXzUSfTy5FUMWsQlU8Ym5JP9eO4xkTIROFCQvhQf61z6O/G6ugw3SgAnvvm+HA==
