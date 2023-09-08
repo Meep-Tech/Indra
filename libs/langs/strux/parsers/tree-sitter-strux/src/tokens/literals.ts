@@ -38,10 +38,10 @@ export class Literals implements RuleSet {
     );
 
   readonly _signed_number: RuleBuilder<Literals>
-    = $ => prec(1, choice(
+    = $ => choice(
       $._signed_decimal,
       $._signed_integer
-    ));
+    );
 
   readonly _unsigned_number: RuleBuilder<Literals>
     = $ =>
@@ -52,13 +52,13 @@ export class Literals implements RuleSet {
 
   readonly _integer: RuleBuilder<Whitespace & Literals>
     = $ => alias(
-      token.immediate(/-?[0-9]+/),
+      token.immediate(/[0-9]+/),
       $.integer
     );
 
   readonly _signed_integer: RuleBuilder<Whitespace & Literals>
     = $ => alias(
-      prec(1, token.immediate(/-?[0-9]+/)),
+      token.immediate(/-[0-9]+/),
       $.integer
     );
 

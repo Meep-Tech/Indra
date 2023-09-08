@@ -1,0 +1,6 @@
+# Setting Values to Variables
+You CANNOT assign values directly to variables using LinX as you would in [[StruX]] or [[BloX]]; Instead you must embed one of the other contexts within a [[LinX Chain]] to do so:
+
+[Ex: &&
+
+]

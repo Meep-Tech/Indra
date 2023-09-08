@@ -21,7 +21,6 @@ import { Grammar } from "./types";
 export const StruX
   = new Grammar({
     name: 'StruX',
-    extras: () => [],
     externals: [
       Raws,
       Indentation,

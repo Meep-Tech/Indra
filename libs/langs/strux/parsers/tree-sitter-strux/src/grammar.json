@@ -336,21 +336,17 @@
       "value": "number"
     },
     "_signed_number": {
-      "type": "PREC",
-      "value": 1,
-      "content": {
-        "type": "CHOICE",
-        "members": [
-          {
-            "type": "SYMBOL",
-            "name": "_signed_decimal"
-          },
-          {
-            "type": "SYMBOL",
-            "name": "_signed_integer"
-          }
-        ]
-      }
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_signed_decimal"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_signed_integer"
+        }
+      ]
     },
     "_unsigned_number": {
       "type": "CHOICE",
@@ -371,7 +367,7 @@
         "type": "IMMEDIATE_TOKEN",
         "content": {
           "type": "PATTERN",
-          "value": "-?[0-9]+"
+          "value": "[0-9]+"
         }
       },
       "named": true,
@@ -380,14 +376,10 @@
     "_signed_integer": {
       "type": "ALIAS",
       "content": {
-        "type": "PREC",
-        "value": 1,
+        "type": "IMMEDIATE_TOKEN",
         "content": {
-          "type": "IMMEDIATE_TOKEN",
-          "content": {
-            "type": "PATTERN",
-            "value": "-?[0-9]+"
-          }
+          "type": "PATTERN",
+          "value": "-[0-9]+"
         }
       },
       "named": true,
@@ -446,7 +438,12 @@
       "value": "text"
     }
   },
-  "extras": [],
+  "extras": [
+    {
+      "type": "PATTERN",
+      "value": "\\s"
+    }
+  ],
   "conflicts": [],
   "precedences": [],
   "externals": [
