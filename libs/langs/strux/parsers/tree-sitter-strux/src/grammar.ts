@@ -13,7 +13,8 @@ import {
   Raws,
   Indentation,
   LineEndings,
-  EmptySpacing
+  EmptySpacing,
+  Errors
 } from "./tokens";
 import { Grammar } from "./types";
 
@@ -25,7 +26,8 @@ export const StruX
       Raws,
       Indentation,
       LineEndings,
-      EmptySpacing
+      EmptySpacing,
+      Errors
     ],
     rules: [
       Sources,

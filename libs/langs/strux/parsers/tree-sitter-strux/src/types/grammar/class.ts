@@ -99,7 +99,7 @@ export class Grammar<
                   const contentParts = ruleContent.split(",");
                   const aliasedContent = contentParts.slice(0, -1).join(",");
                   const currentAlias = contentParts[contentParts.length - 1].split(")")[0].split(".")[1];
-                  alias = _debug_simpleTokenNames ? `$.${currentAlias}_ALIAS_OF:${key}` : `$['${currentAlias} ALIAS_OF:${key}']`;
+                  alias = _debug_simpleTokenNames ? `$.${currentAlias}_ALIAS_OF${key}` : `$['${currentAlias} ALIAS_OF:${key}']`;
                   aliasedRule = `${ruleArgs} => ${aliasedContent},\n\t${alias})`
                 } else {
                   aliasedRule = `${ruleArgs} => alias(\n\t${ruleContent},\n\t${alias})`;

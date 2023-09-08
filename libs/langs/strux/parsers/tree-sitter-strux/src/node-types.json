@@ -1,125 +1,8 @@
 [
   {
-    "type": "HIDDEN_child_value",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "HIDDEN_increase_indent",
-          "named": true
-        },
-        {
-          "type": "HIDDEN_line_ending",
-          "named": true
-        },
-        {
-          "type": "HIDDEN_multiline_map",
-          "named": true
-        },
-        {
-          "type": "literal",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "HIDDEN_inline_value",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": false,
-      "types": [
-        {
-          "type": "HIDDEN_line_ending",
-          "named": true
-        },
-        {
-          "type": "literal",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "HIDDEN_multiline_map",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "HIDDEN_current_indent",
-          "named": true
-        },
-        {
-          "type": "HIDDEN_end_of_file",
-          "named": true
-        },
-        {
-          "type": "HIDDEN_line_ending",
-          "named": true
-        },
-        {
-          "type": "named_entry",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "HIDDEN_multiline_map_named_entry",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "HIDDEN_child_value",
-          "named": true
-        },
-        {
-          "type": "HIDDEN_inline_value",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "HIDDEN_struct",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "HIDDEN_multiline_map",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
     "type": "empty",
     "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": false,
-      "types": [
-        {
-          "type": "HIDDEN_end_of_file",
-          "named": true
-        }
-      ]
-    }
+    "fields": {}
   },
   {
     "type": "literal",
@@ -134,6 +17,10 @@
           "named": true
         },
         {
+          "type": "literal",
+          "named": true
+        },
+        {
           "type": "number",
           "named": true
         },
@@ -145,6 +32,26 @@
     }
   },
   {
+    "type": "map",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "named_entry",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "name",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "named_entry",
     "named": true,
     "fields": {
@@ -153,7 +60,7 @@
         "required": true,
         "types": [
           {
-            "type": "HIDDEN_multiline_map_named_entry",
+            "type": "name",
             "named": true
           }
         ]
@@ -163,17 +70,21 @@
         "required": true,
         "types": [
           {
-            "type": "HIDDEN_multiline_map_named_entry",
+            "type": "assignment_operator",
             "named": true
           }
         ]
       },
       "value": {
-        "multiple": false,
+        "multiple": true,
         "required": true,
         "types": [
           {
-            "type": "HIDDEN_multiline_map_named_entry",
+            "type": "literal",
+            "named": true
+          },
+          {
+            "type": "map",
             "named": true
           }
         ]
@@ -204,21 +115,9 @@
     "named": true,
     "fields": {},
     "children": {
-      "multiple": true,
+      "multiple": false,
       "required": true,
       "types": [
-        {
-          "type": "HIDDEN_end_of_file",
-          "named": true
-        },
-        {
-          "type": "HIDDEN_line_ending",
-          "named": true
-        },
-        {
-          "type": "HIDDEN_struct",
-          "named": true
-        },
         {
           "type": "empty",
           "named": true
@@ -226,36 +125,16 @@
         {
           "type": "literal",
           "named": true
+        },
+        {
+          "type": "map",
+          "named": true
         }
       ]
     }
   },
   {
-    "type": "HIDDEN_current_indent",
-    "named": true
-  },
-  {
-    "type": "HIDDEN_decrease_indent",
-    "named": true
-  },
-  {
-    "type": "HIDDEN_end_of_file",
-    "named": true
-  },
-  {
-    "type": "HIDDEN_increase_indent",
-    "named": true
-  },
-  {
-    "type": "HIDDEN_line_ending",
-    "named": true
-  },
-  {
-    "type": "HIDDEN_multiline_spacing",
-    "named": true
-  },
-  {
-    "type": "HIDDEN_newline",
+    "type": "assignment_operator",
     "named": true
   },
   {

@@ -46,7 +46,7 @@ export class Literals implements RuleSet {
 
   readonly _integer: RuleBuilder
     = $ => alias(
-      token.immediate(/[ \t\n]+\-?[0-9]+/),
+      token.immediate(/\-?[0-9]+/),
       $.integer
     );
 
