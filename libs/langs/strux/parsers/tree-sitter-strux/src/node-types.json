@@ -17,10 +17,6 @@
           "named": true
         },
         {
-          "type": "literal",
-          "named": true
-        },
-        {
           "type": "number",
           "named": true
         },
@@ -94,18 +90,7 @@
   {
     "type": "number",
     "named": true,
-    "fields": {
-      "operator": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "-",
-            "named": false
-          }
-        ]
-      }
-    },
+    "fields": {},
     "children": {
       "multiple": true,
       "required": true,
@@ -139,10 +124,6 @@
         }
       ]
     }
-  },
-  {
-    "type": "-",
-    "named": false
   },
   {
     "type": ".",

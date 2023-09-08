@@ -3,25 +3,16 @@ import Whitespace from "./whitespace";
 export class Literals implements RuleSet {
   readonly [key: string]: RuleBuilder | undefined;
 
-  readonly literal: RuleBuilder<Literals>
-    = $ => choice(
-      $._inline_literal,
-      $._multiline_literal
-    );
-
   readonly _multiline_literal: RuleBuilder<Literals>
-    = $ => alias(
-      $._multiline_empty,
-      $.literal
-    );
+    = $ => alias($._multiline_empty, $.literal);
 
   readonly _inline_literal: RuleBuilder<Literals>
     = $ => alias(
-      prec.left(choice(
+      choice(
         $._inline_number,
         $._inline_empty,
-        prec(-1, $._inline_text),
-      )),
+        $._inline_text,
+      ),
       $.literal
     );
 
@@ -40,25 +31,47 @@ export class Literals implements RuleSet {
   readonly _inline_number: RuleBuilder<Literals>
     = $ => alias(
       choice(
-        $._integer,
-        $._signed_integer,
-        $._decimal,
+        $._signed_number,
+        $._unsigned_number
       ),
       $.number
     );
 
+  readonly _signed_number: RuleBuilder<Literals>
+    = $ => prec(1, choice(
+      $._signed_decimal,
+      $._signed_integer
+    ));
+
+  readonly _unsigned_number: RuleBuilder<Literals>
+    = $ =>
+      choice(
+        $._decimal,
+        $._integer
+      );
+
   readonly _integer: RuleBuilder<Whitespace & Literals>
-    = $ => alias(token.immediate(/[0-9]+/), $.integer);
+    = $ => alias(
+      token.immediate(/-?[0-9]+/),
+      $.integer
+    );
 
   readonly _signed_integer: RuleBuilder<Whitespace & Literals>
-    = $ => seq(
-      field(KEYS.OPERATOR, token.immediate('-')),
-      $._integer,
-    )
+    = $ => alias(
+      prec(1, token.immediate(/-?[0-9]+/)),
+      $.integer
+    );
 
   readonly _decimal: RuleBuilder<Literals>
     = $ => seq(
       $._integer,
+      token.immediate('.'),
+      $._integer,
+    );
+
+  readonly _signed_decimal: RuleBuilder<Literals>
+    = $ => seq(
+      $._signed_integer,
       token.immediate('.'),
       $._integer,
     );

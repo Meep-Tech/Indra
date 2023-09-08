@@ -18,7 +18,8 @@ export class Values implements RuleSet {
       $._increase_indent,
       choice(
         $.map,
-        $.literal
+        $._inline_literal,
+        $._multiline_literal,
       ))
 }
 

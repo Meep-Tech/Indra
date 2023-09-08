@@ -252,22 +252,13 @@
             },
             {
               "type": "SYMBOL",
-              "name": "literal"
+              "name": "_inline_literal"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "_multiline_literal"
             }
           ]
-        }
-      ]
-    },
-    "literal": {
-      "type": "CHOICE",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "_inline_literal"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "_multiline_literal"
         }
       ]
     },
@@ -283,29 +274,21 @@
     "_inline_literal": {
       "type": "ALIAS",
       "content": {
-        "type": "PREC_LEFT",
-        "value": 0,
-        "content": {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "SYMBOL",
-              "name": "_inline_number"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "_inline_empty"
-            },
-            {
-              "type": "PREC",
-              "value": -1,
-              "content": {
-                "type": "SYMBOL",
-                "name": "_inline_text"
-              }
-            }
-          ]
-        }
+        "type": "CHOICE",
+        "members": [
+          {
+            "type": "SYMBOL",
+            "name": "_inline_number"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "_inline_empty"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "_inline_text"
+          }
+        ]
       },
       "named": true,
       "value": "literal"
@@ -341,20 +324,46 @@
         "members": [
           {
             "type": "SYMBOL",
-            "name": "_integer"
+            "name": "_signed_number"
           },
           {
             "type": "SYMBOL",
-            "name": "_signed_integer"
-          },
-          {
-            "type": "SYMBOL",
-            "name": "_decimal"
+            "name": "_unsigned_number"
           }
         ]
       },
       "named": true,
       "value": "number"
+    },
+    "_signed_number": {
+      "type": "PREC",
+      "value": 1,
+      "content": {
+        "type": "CHOICE",
+        "members": [
+          {
+            "type": "SYMBOL",
+            "name": "_signed_decimal"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "_signed_integer"
+          }
+        ]
+      }
+    },
+    "_unsigned_number": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_decimal"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_integer"
+        }
+      ]
     },
     "_integer": {
       "type": "ALIAS",
@@ -362,24 +371,40 @@
         "type": "IMMEDIATE_TOKEN",
         "content": {
           "type": "PATTERN",
-          "value": "[0-9]+"
+          "value": "-?[0-9]+"
         }
       },
       "named": true,
       "value": "integer"
     },
     "_signed_integer": {
+      "type": "ALIAS",
+      "content": {
+        "type": "PREC",
+        "value": 1,
+        "content": {
+          "type": "IMMEDIATE_TOKEN",
+          "content": {
+            "type": "PATTERN",
+            "value": "-?[0-9]+"
+          }
+        }
+      },
+      "named": true,
+      "value": "integer"
+    },
+    "_decimal": {
       "type": "SEQ",
       "members": [
         {
-          "type": "FIELD",
-          "name": "operator",
+          "type": "SYMBOL",
+          "name": "_integer"
+        },
+        {
+          "type": "IMMEDIATE_TOKEN",
           "content": {
-            "type": "IMMEDIATE_TOKEN",
-            "content": {
-              "type": "STRING",
-              "value": "-"
-            }
+            "type": "STRING",
+            "value": "."
           }
         },
         {
@@ -388,12 +413,12 @@
         }
       ]
     },
-    "_decimal": {
+    "_signed_decimal": {
       "type": "SEQ",
       "members": [
         {
           "type": "SYMBOL",
-          "name": "_integer"
+          "name": "_signed_integer"
         },
         {
           "type": "IMMEDIATE_TOKEN",
