@@ -51,8 +51,16 @@
                   }
                 },
                 {
-                  "type": "SYMBOL",
-                  "name": "_end_of_file"
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "SYMBOL",
+                      "name": "_end_of_file"
+                    },
+                    {
+                      "type": "BLANK"
+                    }
+                  ]
                 }
               ]
             },
@@ -275,29 +283,29 @@
     "_inline_literal": {
       "type": "ALIAS",
       "content": {
-        "type": "CHOICE",
-        "members": [
-          {
-            "type": "PREC",
-            "value": 1,
-            "content": {
+        "type": "PREC_LEFT",
+        "value": 0,
+        "content": {
+          "type": "CHOICE",
+          "members": [
+            {
               "type": "SYMBOL",
               "name": "_inline_number"
-            }
-          },
-          {
-            "type": "PREC",
-            "value": 1,
-            "content": {
+            },
+            {
               "type": "SYMBOL",
               "name": "_inline_empty"
+            },
+            {
+              "type": "PREC",
+              "value": -1,
+              "content": {
+                "type": "SYMBOL",
+                "name": "_inline_text"
+              }
             }
-          },
-          {
-            "type": "SYMBOL",
-            "name": "_inline_text"
-          }
-        ]
+          ]
+        }
       },
       "named": true,
       "value": "literal"
@@ -308,7 +316,7 @@
         "type": "IMMEDIATE_TOKEN",
         "content": {
           "type": "PATTERN",
-          "value": "[ \\t\\n]*"
+          "value": "[ \\t\\n\\r]*"
         }
       },
       "named": true,
@@ -329,23 +337,19 @@
     "_inline_number": {
       "type": "ALIAS",
       "content": {
-        "type": "SEQ",
+        "type": "CHOICE",
         "members": [
           {
             "type": "SYMBOL",
             "name": "_integer"
           },
           {
-            "type": "CHOICE",
-            "members": [
-              {
-                "type": "SYMBOL",
-                "name": "_decimal"
-              },
-              {
-                "type": "BLANK"
-              }
-            ]
+            "type": "SYMBOL",
+            "name": "_signed_integer"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "_decimal"
           }
         ]
       },
@@ -358,23 +362,51 @@
         "type": "IMMEDIATE_TOKEN",
         "content": {
           "type": "PATTERN",
-          "value": "\\-?[0-9]+"
+          "value": "[0-9]+"
         }
       },
       "named": true,
       "value": "integer"
     },
-    "_decimal": {
-      "type": "ALIAS",
-      "content": {
-        "type": "IMMEDIATE_TOKEN",
-        "content": {
-          "type": "PATTERN",
-          "value": ".[0-9]+"
+    "_signed_integer": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "operator",
+          "content": {
+            "type": "IMMEDIATE_TOKEN",
+            "content": {
+              "type": "STRING",
+              "value": "-"
+            }
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_integer"
         }
-      },
-      "named": true,
-      "value": "decimal"
+      ]
+    },
+    "_decimal": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_integer"
+        },
+        {
+          "type": "IMMEDIATE_TOKEN",
+          "content": {
+            "type": "STRING",
+            "value": "."
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_integer"
+        }
+      ]
     },
     "_inline_text": {
       "type": "ALIAS",
@@ -382,7 +414,7 @@
         "type": "IMMEDIATE_TOKEN",
         "content": {
           "type": "PATTERN",
-          "value": ".+"
+          "value": "[^\\n\\r]+"
         }
       },
       "named": true,

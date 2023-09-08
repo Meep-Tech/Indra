@@ -22,7 +22,7 @@ export class Sources implements RuleSet {
       // padding
       optional(seq(
         repeat($._line_ending),
-        $._end_of_file
+        optional($._end_of_file)
       ))
     );
 }

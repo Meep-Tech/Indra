@@ -9,7 +9,7 @@
     "named": true,
     "fields": {},
     "children": {
-      "multiple": true,
+      "multiple": false,
       "required": true,
       "types": [
         {
@@ -94,15 +94,22 @@
   {
     "type": "number",
     "named": true,
-    "fields": {},
+    "fields": {
+      "operator": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "-",
+            "named": false
+          }
+        ]
+      }
+    },
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": true,
       "types": [
-        {
-          "type": "decimal",
-          "named": true
-        },
         {
           "type": "integer",
           "named": true
@@ -134,11 +141,15 @@
     }
   },
   {
-    "type": "assignment_operator",
-    "named": true
+    "type": "-",
+    "named": false
   },
   {
-    "type": "decimal",
+    "type": ".",
+    "named": false
+  },
+  {
+    "type": "assignment_operator",
     "named": true
   },
   {
