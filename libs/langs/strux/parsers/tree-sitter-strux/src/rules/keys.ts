@@ -3,5 +3,9 @@ declare const enum KEYS {
   VALUE = 'value',
   TYPE = 'type',
   OPERATOR = 'operator',
-  INDENT = 'indent'
+  INDENT = 'indent',
+  PREFIX = 'prefix',
+  SUFFIX = 'suffix',
+  LEFT = 'left',
+  RIGHT = 'right'
 }

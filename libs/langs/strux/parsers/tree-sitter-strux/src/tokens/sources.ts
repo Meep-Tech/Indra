@@ -1,4 +1,4 @@
-import Literals from "./literals";
+import Literals from "./literals/literals";
 import { Structs } from "./structures";
 import Whitespace from "./whitespace";
 
@@ -14,9 +14,11 @@ export class Sources implements RuleSet {
         // data structure
         $._struct,
         // lone literal
-        $._inline_literal,
+        choice(
+          $._inline_literal,
+          $._multiline_literal
+        ),
         // empty
-        $._multiline_empty,
         alias($._end_of_file, $.empty)
       ),
       // padding

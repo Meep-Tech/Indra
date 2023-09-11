@@ -6,10 +6,10 @@
   "author": "meep.tech",
   "license": "MIT",
   "dependencies": {
-    "colors": "^1.4.0",
     "nan": "^2.17.0"
   },
   "devDependencies": {
+    "colors": "^1.4.0",
     "@types/cson": "^7.20.1",
     "@types/node": "^20.5.1",
     "tree-sitter-cli": "^0.20.8",
@@ -25,8 +25,7 @@
     "================": "----------------------------------------------------------------",
     "  --Install--  ": "echo Commands for installing the dependencies",
     "----------------": "----------------------------------------------------------------",
-    "install": "yarn",
-    "reinstall": "rm -rf node_modules && rm -f yarn.lock && yarn",
+    "clean-install": "rm -rf node_modules && rm -f yarn.lock && yarn",
     "===============": "-----------------------------------------------------------------",
     "  --Build--  ": "echo Commands for building the parser",
     "---------------": "-----------------------------------------------------------------",

@@ -1,3 +1,21 @@
-node_modules
-.old
-.vscode
+## Deprecated
+**/.old
+
+## IDE Settings
+**/.vscode
+
+# Dependencies
+**/node_modules
+**/obj
+
+## Builds
+**/build
+**/bin
+**/dist
+
+## Enviroment Arguments
+.envrc
+**/**.local.**
+**/**.dev.**
+**/**.prod.**
+!**/**.example.**

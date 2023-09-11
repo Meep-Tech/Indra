@@ -1,12 +1,5 @@
 import 'colors';
 
-export type DebugSettings = {
-  showHiddenRules?: boolean;
-  showLogs?: boolean;
-  throwErrors?: boolean;
-  simpleTokenNames?: boolean;
-};
-
 export class Grammar<
   TRules extends RuleSetClass,
   TExternals extends ExternalRuleClass,
@@ -48,7 +41,7 @@ export class Grammar<
   }: Readonly<Partial<Omit<Grammar<TRules, TExternals>, 'externals' | 'name' | 'rules'>> & {
     _debug?: boolean | DebugSettings
     name: string;
-    rules: TRules[] | [];
+    rules: (TRules | TIRules)[] | [];
     externals?: TExternals[] | [];
   }>) {
     // init debug
@@ -73,8 +66,9 @@ export class Grammar<
     const allRules = {} as TIRules;
     for (const rule of rules) {
       try {
-        _debug_log("Building RuleSet: " + (rule?.name ?? 'undefined').blue);
-        const ruleSet = new rule();
+        const ruleSet = rule instanceof Function ? new rule() : rule;
+        const ruleSetClass = rule instanceof Function ? rule : rule.constructor;
+        _debug_log("Building RuleSet: " + (ruleSetClass?.name ?? 'undefined').blue);
 
         for (const key in ruleSet) {
           _debug_log(`Checking if RuleSet Propery: ${key.yellow}, is a valid RuleBuilder`);
@@ -104,13 +98,13 @@ export class Grammar<
                   aliasedRule = `$ => alias(\n\t${ruleContent},\n\t${alias})`;
                 }
 
-                _debug_log(`Adding Hidden Rule: ${rule.name.blue}.${key.yellow} to Grammar as ${alias.yellow}`);
+                _debug_log(`Adding Hidden Rule: ${ruleSetClass.name.blue}.${key.yellow} to Grammar as ${alias.yellow}`);
                 try {
                   const newRule = new Function("return " + aliasedRule)();
                   ruleBuilder = newRule as RuleBuilder<any, any>;
                 } catch (e) {
                   if (_debug_showLogs) {
-                    _debug_log("Unable to parse as a RuleSet: " + (rule?.name ?? 'undefined').red + ", due to Error: " + e!.toString().red, {
+                    _debug_log("Unable to parse as a RuleSet: " + (ruleSetClass?.name ?? 'undefined').red + ", due to Error: " + e!.toString().red, {
                       old: "return " + ruleBuilder.toString().magenta,
                       new: "return ".magenta + aliasedRule.magenta
                     });
@@ -125,7 +119,7 @@ export class Grammar<
               allRules[ruleKey] = ruleBuilder as TIRules[keyof TIRules];
             } catch (e) {
               if (_debug_showLogs) {
-                _debug_log("Unable to parse as a RuleSet: " + (rule?.name ?? 'undefined').red + ", due to Error: " + e!.toString().red, { ruleBuilder: ruleBuilder.toString().magenta });
+                _debug_log("Unable to parse as a RuleSet: " + (ruleSetClass?.name ?? 'undefined').red + ", due to Error: " + e!.toString().red, { ruleBuilder: ruleBuilder.toString().magenta });
                 if (_debug_throwErrors) {
                   throw e;
                 }
@@ -135,7 +129,7 @@ export class Grammar<
         }
       } catch (e) {
         if (_debug_showLogs) {
-          _debug_log("Unable to parse as a RuleSetClass: " + (rule?.name ?? 'undefined').red + ", due to Error: " + e!.toString().red, { rule });
+          _debug_log("Unable to parse as a RuleSetClass: " + (rule instanceof Function ? rule.name : rule?.constructor?.name ?? 'undefined').red + ", due to Error: " + e!.toString().red, { rule });
           if (_debug_throwErrors) {
             throw e;
           }

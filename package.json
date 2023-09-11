@@ -2,6 +2,8 @@
   "name": "indra",
   "version": "a.0.0.1",
   "description": "Indra is a note-taking based Runtime and set of tools for building, modding, and running both local and networked applications.",
+  "license": "MIT",
+  "author": "meep.tech",
   "scripts": {
     "cd--tree-sitter-strux": "cd libs/langs/strux/parsers/tree-sitter-strux/",
     "cd--strux-parser": "cd libs/langs/strux/parsers/indra-web_strux-parser/",

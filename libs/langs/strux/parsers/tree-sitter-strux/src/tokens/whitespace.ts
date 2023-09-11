@@ -21,6 +21,9 @@ export class Whitespace implements RuleSet<Indentation | LineEndings | EmptySpac
   readonly _end_of_file: RuleBuilder<{}, LineEndings>
     = $ => $._end_of_file_;
 
+  readonly _inline_spacing: RuleBuilder<{}, EmptySpacing>
+    = $ => $._inline_spacing_;
+
   readonly _multiline_spacing: RuleBuilder<{}, EmptySpacing>
     = $ => $._multiline_spacing_;
 }

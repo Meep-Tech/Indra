@@ -1,0 +1,37 @@
+{
+  "name": "ts-tree-sitter-csv-example",
+  "version": "0.1.0",
+  "description": "Example ts-tree-sitter Grammer for Comma Seperated Values (csv).",
+  "main": "bindings/node",
+  "author": "meep.tech",
+  "license": "MIT",
+  "dependencies": {
+    "nan": "^2.17.0"
+  },
+  "devDependencies": {
+    "colors": "^1.4.0",
+    "@types/cson": "^7.20.1",
+    "@types/node": "^20.5.1",
+    "typescript": "^5.1.6"
+  },
+  "tree-sitter": {
+    "scope": "source.csv",
+    "file-types": [
+      "csv"
+    ]
+  },
+  "scripts": {
+    "================": "----------------------------------------------------------------",
+    "  --Install--  ": "echo Commands for installing the dependencies",
+    "----------------": "----------------------------------------------------------------",
+    "clean": "rm -rf node_modules && rm -f yarn.lock",
+    "clean-install": "npm run clean && yarn",
+    "===============": "-----------------------------------------------------------------",
+    "  --Build--  ": "echo Commands for building the parser",
+    "---------------": "-----------------------------------------------------------------",
+    "build": "npm run build-types && npm run build-parser",
+    "build-types": "npx tsc",
+    "build-parser": "npx tsc",
+    "--------------------": "--------------------------------------------------------------"
+  }
+}

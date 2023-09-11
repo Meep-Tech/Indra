@@ -19,12 +19,17 @@
               "name": "_struct"
             },
             {
-              "type": "SYMBOL",
-              "name": "_inline_literal"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "_multiline_empty"
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "_inline_literal"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "_multiline_literal"
+                }
+              ]
             },
             {
               "type": "ALIAS",
@@ -72,32 +77,67 @@
       ]
     },
     "_newline": {
-      "type": "SYMBOL",
-      "name": "_newline_"
+      "type": "ALIAS",
+      "content": {
+        "type": "SYMBOL",
+        "name": "_newline_"
+      },
+      "named": true,
+      "value": "HIDDEN_newline"
     },
     "_current_indent": {
-      "type": "SYMBOL",
-      "name": "_samedent_"
+      "type": "ALIAS",
+      "content": {
+        "type": "SYMBOL",
+        "name": "_samedent_"
+      },
+      "named": true,
+      "value": "HIDDEN_current_indent"
     },
     "_increase_indent": {
-      "type": "SYMBOL",
-      "name": "_indent_"
+      "type": "ALIAS",
+      "content": {
+        "type": "SYMBOL",
+        "name": "_indent_"
+      },
+      "named": true,
+      "value": "HIDDEN_increase_indent"
     },
     "_decrease_indent": {
-      "type": "SYMBOL",
-      "name": "_dedent_"
+      "type": "ALIAS",
+      "content": {
+        "type": "SYMBOL",
+        "name": "_dedent_"
+      },
+      "named": true,
+      "value": "HIDDEN_decrease_indent"
     },
     "_line_ending": {
-      "type": "SYMBOL",
-      "name": "_line_ending_"
+      "type": "ALIAS",
+      "content": {
+        "type": "SYMBOL",
+        "name": "_line_ending_"
+      },
+      "named": true,
+      "value": "HIDDEN_line_ending"
     },
     "_end_of_file": {
-      "type": "SYMBOL",
-      "name": "_end_of_file_"
+      "type": "ALIAS",
+      "content": {
+        "type": "SYMBOL",
+        "name": "_end_of_file_"
+      },
+      "named": true,
+      "value": "HIDDEN_end_of_file"
     },
     "_multiline_spacing": {
-      "type": "SYMBOL",
-      "name": "_multiline_spacing_"
+      "type": "ALIAS",
+      "content": {
+        "type": "SYMBOL",
+        "name": "_multiline_spacing_"
+      },
+      "named": true,
+      "value": "HIDDEN_multiline_spacing"
     },
     "assignment_operator": {
       "type": "IMMEDIATE_TOKEN",
@@ -107,62 +147,72 @@
       }
     },
     "_struct": {
-      "type": "SYMBOL",
-      "name": "map"
+      "type": "ALIAS",
+      "content": {
+        "type": "SYMBOL",
+        "name": "map"
+      },
+      "named": true,
+      "value": "HIDDEN_struct"
     },
     "map": {
       "type": "SYMBOL",
       "name": "_multiline_map"
     },
     "_multiline_map": {
-      "type": "PREC_LEFT",
-      "value": 0,
+      "type": "ALIAS",
       "content": {
-        "type": "SEQ",
-        "members": [
-          {
-            "type": "SYMBOL",
-            "name": "_multiline_map_entry"
-          },
-          {
-            "type": "REPEAT",
-            "content": {
-              "type": "SEQ",
-              "members": [
-                {
-                  "type": "SYMBOL",
-                  "name": "_multiline_map_entry"
-                },
-                {
-                  "type": "SYMBOL",
-                  "name": "_current_indent"
-                }
-              ]
-            }
-          },
-          {
-            "type": "CHOICE",
-            "members": [
-              {
+        "type": "PREC_LEFT",
+        "value": 0,
+        "content": {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "_multiline_map_entry"
+            },
+            {
+              "type": "REPEAT",
+              "content": {
                 "type": "SEQ",
                 "members": [
                   {
                     "type": "SYMBOL",
-                    "name": "_line_ending"
+                    "name": "_multiline_map_entry"
                   },
                   {
                     "type": "SYMBOL",
-                    "name": "_end_of_file"
+                    "name": "_current_indent"
                   }
                 ]
-              },
-              {
-                "type": "BLANK"
               }
-            ]
-          }
-        ]
-      }
+            },
+            {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SEQ",
+                  "members": [
+                    {
+                      "type": "SYMBOL",
+                      "name": "_line_ending"
+                    },
+                    {
+                      "type": "SYMBOL",
+                      "name": "_end_of_file"
+                    }
+                  ]
+                },
+                {
+                  "type": "BLANK"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "named": true,
+      "value": "HIDDEN_multiline_map"
     },
     "_multiline_map_entry": {
       "type": "ALIAS",
@@ -171,105 +221,124 @@
         "name": "_multiline_map_named_entry"
       },
       "named": true,
-      "value": "named_entry"
+      "value": "named_entry_ALIAS_OF_multiline_map_entry"
     },
     "_multiline_map_named_entry": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "FIELD",
-          "name": "key",
-          "content": {
-            "type": "SYMBOL",
-            "name": "name"
+      "type": "ALIAS",
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "FIELD",
+            "name": "key",
+            "content": {
+              "type": "SYMBOL",
+              "name": "name"
+            }
+          },
+          {
+            "type": "FIELD",
+            "name": "operator",
+            "content": {
+              "type": "SYMBOL",
+              "name": "assignment_operator"
+            }
+          },
+          {
+            "type": "FIELD",
+            "name": "value",
+            "content": {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "_child_value"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "_inline_value"
+                }
+              ]
+            }
           }
-        },
-        {
-          "type": "FIELD",
-          "name": "operator",
-          "content": {
-            "type": "SYMBOL",
-            "name": "assignment_operator"
-          }
-        },
-        {
-          "type": "FIELD",
-          "name": "value",
-          "content": {
-            "type": "CHOICE",
-            "members": [
-              {
-                "type": "SYMBOL",
-                "name": "_child_value"
-              },
-              {
-                "type": "SYMBOL",
-                "name": "_inline_value"
-              }
-            ]
-          }
-        }
-      ]
+        ]
+      },
+      "named": true,
+      "value": "HIDDEN_multiline_map_named_entry"
     },
     "name": {
       "type": "SYMBOL",
       "name": "_name_"
     },
     "_inline_value": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "PATTERN",
-          "value": "[ \\t]+"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "_inline_literal"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "_line_ending"
-        }
-      ]
+      "type": "ALIAS",
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "PATTERN",
+            "value": "[ \\t]+"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "_inline_literal"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "_line_ending"
+          }
+        ]
+      },
+      "named": true,
+      "value": "HIDDEN_inline_value"
     },
     "_child_value": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "_line_ending"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "_increase_indent"
-        },
-        {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "SYMBOL",
-              "name": "map"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "_inline_literal"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "_multiline_literal"
-            }
-          ]
-        }
-      ]
+      "type": "ALIAS",
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "SYMBOL",
+            "name": "_line_ending"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "_increase_indent"
+          },
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "map"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "_inline_literal"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "_multiline_literal"
+              }
+            ]
+          }
+        ]
+      },
+      "named": true,
+      "value": "HIDDEN_child_value"
     },
     "_multiline_literal": {
       "type": "ALIAS",
       "content": {
-        "type": "SYMBOL",
-        "name": "_multiline_empty"
+        "type": "PREC_RIGHT",
+        "value": 0,
+        "content": {
+          "type": "SYMBOL",
+          "name": "_multiline_empty"
+        }
       },
       "named": true,
-      "value": "literal"
+      "value": "literal_ALIAS_OF_multiline_literal"
     },
     "_inline_literal": {
       "type": "ALIAS",
@@ -291,7 +360,7 @@
         ]
       },
       "named": true,
-      "value": "literal"
+      "value": "literal_ALIAS_OF_inline_literal"
     },
     "_multiline_empty": {
       "type": "ALIAS",
@@ -303,7 +372,7 @@
         }
       },
       "named": true,
-      "value": "empty"
+      "value": "empty_ALIAS_OF_multiline_empty"
     },
     "_inline_empty": {
       "type": "ALIAS",
@@ -315,7 +384,7 @@
         }
       },
       "named": true,
-      "value": "empty"
+      "value": "empty_ALIAS_OF_inline_empty"
     },
     "_inline_number": {
       "type": "ALIAS",
@@ -333,33 +402,43 @@
         ]
       },
       "named": true,
-      "value": "number"
+      "value": "number_ALIAS_OF_inline_number"
     },
     "_signed_number": {
-      "type": "CHOICE",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "_signed_decimal"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "_signed_integer"
-        }
-      ]
+      "type": "ALIAS",
+      "content": {
+        "type": "CHOICE",
+        "members": [
+          {
+            "type": "SYMBOL",
+            "name": "_signed_decimal"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "_signed_integer"
+          }
+        ]
+      },
+      "named": true,
+      "value": "HIDDEN_signed_number"
     },
     "_unsigned_number": {
-      "type": "CHOICE",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "_decimal"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "_integer"
-        }
-      ]
+      "type": "ALIAS",
+      "content": {
+        "type": "CHOICE",
+        "members": [
+          {
+            "type": "SYMBOL",
+            "name": "_decimal"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "_integer"
+          }
+        ]
+      },
+      "named": true,
+      "value": "HIDDEN_unsigned_number"
     },
     "_integer": {
       "type": "ALIAS",
@@ -371,59 +450,81 @@
         }
       },
       "named": true,
-      "value": "integer"
+      "value": "integer_ALIAS_OF_integer"
     },
     "_signed_integer": {
       "type": "ALIAS",
       "content": {
-        "type": "IMMEDIATE_TOKEN",
-        "content": {
-          "type": "PATTERN",
-          "value": "-[0-9]+"
-        }
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "IMMEDIATE_TOKEN",
+            "content": {
+              "type": "PATTERN",
+              "value": "\\-"
+            }
+          },
+          {
+            "type": "IMMEDIATE_TOKEN",
+            "content": {
+              "type": "PATTERN",
+              "value": "-[0-9]+"
+            }
+          }
+        ]
       },
       "named": true,
-      "value": "integer"
+      "value": "integer_ALIAS_OF_signed_integer"
     },
     "_decimal": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "_integer"
-        },
-        {
-          "type": "IMMEDIATE_TOKEN",
-          "content": {
-            "type": "STRING",
-            "value": "."
+      "type": "ALIAS",
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "SYMBOL",
+            "name": "_integer"
+          },
+          {
+            "type": "IMMEDIATE_TOKEN",
+            "content": {
+              "type": "STRING",
+              "value": "."
+            }
+          },
+          {
+            "type": "SYMBOL",
+            "name": "_integer"
           }
-        },
-        {
-          "type": "SYMBOL",
-          "name": "_integer"
-        }
-      ]
+        ]
+      },
+      "named": true,
+      "value": "HIDDEN_decimal"
     },
     "_signed_decimal": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "_signed_integer"
-        },
-        {
-          "type": "IMMEDIATE_TOKEN",
-          "content": {
-            "type": "STRING",
-            "value": "."
+      "type": "ALIAS",
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "SYMBOL",
+            "name": "_signed_integer"
+          },
+          {
+            "type": "IMMEDIATE_TOKEN",
+            "content": {
+              "type": "STRING",
+              "value": "."
+            }
+          },
+          {
+            "type": "SYMBOL",
+            "name": "_integer"
           }
-        },
-        {
-          "type": "SYMBOL",
-          "name": "_integer"
-        }
-      ]
+        ]
+      },
+      "named": true,
+      "value": "HIDDEN_signed_decimal"
     },
     "_inline_text": {
       "type": "ALIAS",
@@ -435,7 +536,7 @@
         }
       },
       "named": true,
-      "value": "text"
+      "value": "text_ALIAS_OF_inline_text"
     }
   },
   "extras": [

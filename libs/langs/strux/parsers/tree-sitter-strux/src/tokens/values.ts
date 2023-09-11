@@ -1,4 +1,4 @@
-import { Literals } from "./literals";
+import { Literals } from "./literals/literals";
 import { Maps } from "./structures/maps";
 import { Whitespace } from "./symbols";
 
