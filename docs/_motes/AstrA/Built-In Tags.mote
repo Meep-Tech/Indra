@@ -1,0 +1,19 @@
+- **any**: *Any* Any (Non-Empty) Type. ##typ
+- **<tag>?**: *Optional* Marks the given Type(<type>) as Optional/Nullable/'or Empty'. ##typ
+- **par**: *Paragraph |p* A Paragraph of Blox Markdown Text. ##typ
+- **str**: *String* A String of Text. ##typ
+- **txt**: *Text* A String, Paragraph, or Pattern.
+- **ptn**: *Pattern* A special pattern between backticks.
+- **sst**: *SimpleString* A Simple String of Literal Text using single quotes. ##typ
+- **stt**: *StringTemplate* A String of Text with Template style Interpolation Variables that uses double quotes. ##typ
+- **tst**: *Test* A Test. ##typ
+- **stx**: *Structure| struct* A Structure. ##typ
+- **blx**: *Block* A Block. ##typ
+- **prx**: *Procedural |proc* A Procedural. ##typ
+- **def**: *Default* A Default value or type.
+- **ini**: *Initial Inputs* Used to define and access input arguments and parameters for procs.
+- **exe**: *Used to access the current execution context for a proc.
+- **val**: *Value* An Instance or Reference Value which is stored in an Entry. ##typ
+- **obj**: *Instance |object* An Instance of a Structure or Reference to one within an Entry. ##typ
+- **ref**: *Reference* A Reference to an Instance of an Entry. ##typ
+- **key**: *Key* A Key to an Entry. ##typ

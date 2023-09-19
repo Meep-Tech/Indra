@@ -1,0 +1,8 @@
+.#: |typ |Type
+  ## Get the Shaped Typing of the Given Target(s).
+  ## - if the target is a trait key; this will return the trait's typing. (similar to typeof ClassName in TypeScript)
+  of >> #typ?
+
+## ...of
+. >> #typ
+  .of:value

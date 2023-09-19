@@ -1,0 +1,33 @@
+.# >> |var |Entry
+  TParent::> ?? #typ:stx
+  TEntry::> ?? #typ?
+  TKey::> ?? #typ:key
+  TAliases::> ?? #typ:keys
+
+parent_: #TParent |..
+key::> #TKey
+val:> ?? #TEntry |Value
+alias_es: ?? #TAliases
+names
+  >> [key, value]
+  << ./[key, ...aliases]: ini.arg;
+
+.#.named >> #var
+  .#.TKey::> #typ:key.name
+  key: #TKey
+  name: #TKey
+
+.#.ordered >> #var
+  .#.TKey::> #typ:key.index
+  key: #TKey
+  index: #TKey
+
+.#.hybrid >> #var
+  .#.TKey::> #typ:key.name
+  .# TIndex::> #typ:key.index
+  .#.TAliases::> #typ:tup[TIndex, ...keys?].order:any
+  key: #TKey
+  name: #TKey
+  index: #TIndex
+
+.#.input >> #var.hybrid|var.named|var.ordered

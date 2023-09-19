@@ -15,8 +15,8 @@ import {
   LineEndings,
   EmptySpacing,
   Errors
-} from "./tokens";
-import { Grammar } from "./types";
+} from "tree-sitter-strux-tokens";
+import { Grammar } from "ts-tree-sitter";
 
 export const StruX
   = new Grammar({

@@ -1,0 +1,31 @@
+{
+  "name": "tree-sitter-blox-tokens",
+  "version": "0.0.1",
+  "description": "Tokens for StruX's Tree Sitter Grammar Parser.",
+  "main": "build/index.js",
+  "types": "src/index.ts",
+  "author": "meep.tech",
+  "license": "MIT",
+  "devDependencies": {
+    "typescript": "^5.1.6"
+  },
+  "scripts": {
+    "================": "----------------------------------------------------------------",
+    "  --Install--  ": "echo Commands for installing the dependencies",
+    "----------------": "----------------------------------------------------------------",
+    "clean": "rm -rf node_modules && rm -f yarn.lock",
+    "clean-install": "npm run clean && yarn",
+    "===============": "-----------------------------------------------------------------",
+    "  --Build--  ": "echo Commands for building the parser",
+    "---------------": "-----------------------------------------------------------------",
+    "build": "npm run build-types",
+    "build-types": "npx tsc",
+    "==============": "-----------------------------------------------------------------",
+    "  --Link--  ": "echo Commands for building the parser",
+    "--------------": "-----------------------------------------------------------------",
+    "link": "npm run link--ts-tree-sitter && npm run link--tree-sitter-astra-tokens",
+    "link--ts-tree-sitter": "cd ../../../shared/parsers/ts-tree-sitter && npm link && cd ../../../blox/tokens/tree-sitter-blox-tokens && npm link ts-tree-sitter",
+    "link--tree-sitter-astra-tokens": "cd ../../../astra/tokens/tree-sitter-astra-tokens && npm link && cd ../../../blox/tokens/tree-sitter-blox-tokens && npm link tree-sitter-astra-tokens",
+    "--------------------": "--------------------------------------------------------------"
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "name": "ws-tree-sitter",
+  "version": "0.0.1",
+  "description": "tree-sitter Grammer Composition extensions for reading Whitespace via an External `C` Scanner",
+  "author": "meep.tech",
+  "license": "MIT",
+  "main": "build/index.js",
+  "types": "src/index.ts",
+  "devDependencies": {
+    "typescript": "^5.1.6"
+  },
+  "scripts": {
+    "================": "----------------------------------------------------------------",
+    "  --Install--  ": "echo Commands for installing the dependencies",
+    "----------------": "----------------------------------------------------------------",
+    "clean": "rm -rf node_modules && rm -f yarn.lock",
+    "clean-install": "npm run clean && yarn",
+    "===============": "-----------------------------------------------------------------",
+    "  --Build--  ": "echo Commands for building the parser",
+    "---------------": "-----------------------------------------------------------------",
+    "build": "npm run build-types",
+    "build-types": "npx tsc",
+    "--------------------": "--------------------------------------------------------------"
+  }
+}

@@ -1,0 +1,18 @@
+# Operators
+- `:`: #mod #var.named
+- `::`: #cst #var.named
+- `>>`: #prx.cst #get #prx._mod #var.named #@:entry
+- `<<`: #prx.mut #set #prx._mod #var.named #@:entry
+
+# Modifiers
+- `=`: #get #!set
+- `>`: #ini
+- `??`: #def
+- `!!`: #req
+
+# Prefixes
+- `.#.`: #arc
+- `>`: #ini #_get #_mod
+- `>>`: #prx.cst #get #prx._mod #@:parent
+- `<<`: #prx.mut #set #prx._mod #@:parent
+- `-`: #mod #var.ordered

@@ -1,0 +1,5 @@
+Astra (axa) Has 4 Contexts that change how certain symbols in language are interpreted.
+- ProX: Functional Logic (prx)
+- LinX: Chained Execution (lnx)
+- StruX: Data Structures (stx)
+- BloX: Ux Markup (blx)

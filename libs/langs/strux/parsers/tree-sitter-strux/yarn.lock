@@ -4,30 +4,34 @@
 
 "@types/cson@^7.20.1":
   version "7.20.1"
-  resolved "https://registry.yarnpkg.com/@types/cson/-/cson-7.20.1.tgz#bc14c04edbfbc06aa7b3fce3f02eb1adee3d17df"
+  resolved "https://registry.npmjs.org/@types/cson/-/cson-7.20.1.tgz"
   integrity sha512-MSa3Nkti2/dXO+5FZrQTBhs963m4RYCi46dny3OArUH/NOBykNIJ2I02X933Km5Kz1/cwGP8Cq6NidVGyyiXqw==
 
 "@types/node@^20.5.1":
   version "20.5.9"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-20.5.9.tgz#a70ec9d8fa0180a314c3ede0e20ea56ff71aed9a"
+  resolved "https://registry.npmjs.org/@types/node/-/node-20.5.9.tgz"
   integrity sha512-PcGNd//40kHAS3sTlzKB9C9XL4K0sTup8nbG5lC14kzEteTNuAFh9u5nA0o5TWnSG2r/JNPRXFVcHJIIeRlmqQ==
 
 colors@^1.4.0:
   version "1.4.0"
-  resolved "https://registry.yarnpkg.com/colors/-/colors-1.4.0.tgz#c50491479d4c1bdaed2c9ced32cf7c7dc2360f78"
+  resolved "https://registry.npmjs.org/colors/-/colors-1.4.0.tgz"
   integrity sha512-a+UqTh4kgZg/SlGvfbzDHpgRu7AAQOmmqRHJnxhRZICKFUT91brVhNNt58CMWU9PsBbv3PDCZUHbVxuDiH2mtA==
 
 nan@^2.17.0:
   version "2.17.0"
-  resolved "https://registry.yarnpkg.com/nan/-/nan-2.17.0.tgz#c0150a2368a182f033e9aa5195ec76ea41a199cb"
+  resolved "https://registry.npmjs.org/nan/-/nan-2.17.0.tgz"
   integrity sha512-2ZTgtl0nJsO0KQCjEpxcIr5D+Yv90plTitZt9JBfQvVJDS5seMl3FOvsh3+9CoYWXf/1l5OaZzzF6nDm4cagaQ==
 
 tree-sitter-cli@^0.20.8:
   version "0.20.8"
-  resolved "https://registry.yarnpkg.com/tree-sitter-cli/-/tree-sitter-cli-0.20.8.tgz#06a81cea8d6d82f93d67eed7d28b6bc04a4a8916"
+  resolved "https://registry.npmjs.org/tree-sitter-cli/-/tree-sitter-cli-0.20.8.tgz"
   integrity sha512-XjTcS3wdTy/2cc/ptMLc/WRyOLECRYcMTrSWyhZnj1oGSOWbHLTklgsgRICU3cPfb0vy+oZCC33M43u6R1HSCA==
+
+"ts-tree-sitter@file:../../../shared/ts-tree-sitter":
+  version "0.0.1"
+  resolved "file:../../../shared/ts-tree-sitter"
 
 typescript@^5.1.6:
   version "5.2.2"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-5.2.2.tgz#5ebb5e5a5b75f085f22bc3f8460fba308310fa78"
+  resolved "https://registry.npmjs.org/typescript/-/typescript-5.2.2.tgz"
   integrity sha512-mI4WrpHsbCIcwT9cF4FZvr80QUeKvsUsUvKDoR+X/7XHQH98xYD8YHZg7ANtz2GtZt/CBq2QJ0thkGJMHfqc1w==

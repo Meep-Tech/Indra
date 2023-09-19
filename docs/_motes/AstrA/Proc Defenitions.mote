@@ -1,0 +1,41 @@
+---
+.#wip # Currently they share context. Trying to remember why they need to be split?
+.#notes:
+  - A Proc's tags apply to its result by default. You must put any tags specific to the proc in the #prx[] tag.
+---
+# Defining a Procedural
+## Strux Context
+When writing [[Procedurals]](aka [[Procs]]) in a [[StruX]] [[Context]] they are expected to result in a [[Structure]](aka [[Struct]]) of some kind. They are treated more like class Constructors or Prototypes than simple member Methods or standalone Functions.
+
+Ex>
+  ```ts
+  my_proc: >> { // Note the `:` before the `>>`
+    resulting_entry: #entry_type
+    >> explicit.logic()
+  }
+  ```
+
+### Context Switching
+`>>` is used as a line-prefix to switch the current line in a within a [[StruX]] [[Proc]] to [[ProX]] [[Context]].
+
+# ProX Context
+When writing Procs in a ProX Context they are expected to be used mostly for logic, and
+```ts
+my_proc >> {
+  > input_entry: .value
+  assumed.logic()
+  resulting_entry: .value
+  resulting_pararaph_entry: This is assumed to be StruX Naked Text.
+  assumed.logic()
+  assumed.logic()
+  ordered_and_named_entry: .value.
+}
+```
+
+### Context Switching
+`-`, `=`, and `>` can be used as line-prefixes to switch a [[Statement]] within a [[ProX]]-[[Context]] [[Proc]] to a [[StruX]] [[Context]].
+
+The varying symbols represent different [[StruX]] [[Entry]] types:
+  - `-`: Used to prefix a [[StruX]] [[Ordered Entry]] or [[Hybrid Entry]].
+  - `=`: Used to prefix a [[Strux]] [[Named Entry]].
+  - `>`: Used to prefix a [[Strux]] [[Named Entry]] that is also an [[Initial Input Parameter]].

@@ -1,0 +1,38 @@
+---
+.#list: >> .current.list
+---
+# Current
+- `value $key` {note: used like a tag or alias} ##kvp.label.hidden ##scp.file.local ##mut
+- `value $key |Alias` ##kvp.label.hidden ##scp.file.local ##als ##mut
+- `key: value` ##scp.local ##mut ##kvp.label.visible
+- `key:: value` ##scp.local ##cst ##kvp.label.visible
+- `$key: value` ##scp.file.local ##kvp.label.visible
+- `./key: value` ##scp.file ##mut ##kvp.label.visible
+- `value $./key` ##scp.file ##mut ##kvp.label.hidden
+- `[[target|Alias]]` #mut ##als ##lnk.label.alias ##scp.local.file
+- `[Component> $key Composition Arg Values]` ##key.hidden ##scp.local.file ##mut ##cmp ##kvp
+- `[Component>> Composition Arg Values]` ##key.hidden.default ##scp.local.file ##cst ##cmp
+- `key|: value`: ##als.none ##key.hidden.by:als ##mut ##kvp ##scp.local
+- `key|Alias: value`: ##mut ##kvp ##als ##key.visible ##scp.local
+- `[key: value]`: ##scp.local ##key.visible ##blk.label.key ##kvp
+- `[key: value {metadata}]`: ##ini.meta ##tip:ini.meta ##key.visible ##scp.local ##mut ##blk ##kvp
+- `[key|Alias: value]`: ##als ##key.visible ##scp.local ##mut #kvp #blk
+- `[[target]]`: ##lnk.label.default ##key.hidden.default ##scp.local.file #mut
+- `[[target#section]]`: ##lnk.section.label.default ##key.hidden.default #mut
+- `![[target]]`: #emb.label.visible ##key.hidden.defailt #mut
+- `![[target#section]]`: Embeded Mote Se
+- `![[target|alias]]`: Aliased-Title Embeded Mote
+- `![[target|]]`: Quiet Embeded Mote
+- `![[...target]]`: Dynamically Embeded Mote Contents #?
+
+# Deprecated
+## Prox Setter Based
+- `::` File Mut
+- `::=` File Const
+- `:` Local Mut
+- `:=` Local const
+- `|:` Quiet Local Mutable
+- `|:=` Quiet Local Const
+- `|::` Quiet File Mutable
+- `|::=` Quiet File Const
+- `X|Y:` Aliased local
