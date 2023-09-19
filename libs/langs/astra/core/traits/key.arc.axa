@@ -1,0 +1,5 @@
+.#: |key |EntryKey #str|int|ptn
+  .s >> ...
+    of >> #keys
+      > type:: #typ?
+      type?.keys ?? []

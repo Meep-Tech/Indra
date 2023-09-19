@@ -10,8 +10,15 @@
 - `??`: #def
 - `!!`: #req
 
-# Prefixes
+## Key Prefixes
 - `.#.`: #arc
+
+## Name Prefixes
+- `_`: #_get
+- `__`: #__get
+- `___`: #___get
+
+## Line Prefixes
 - `>`: #ini #_get #_mod
 - `>>`: #prx.cst #get #prx._mod #@:parent
 - `<<`: #prx.mut #set #prx._mod #@:parent

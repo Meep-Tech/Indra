@@ -1,0 +1,14 @@
+{
+  "name": "tree-sitter-astra",
+  "version": "0.0.1",
+  "description": "Tree Sitter Parser for the Astra Scripting Language used with Indra.",
+  "main": "bindings/node",
+  "scripts": {
+    "test": "npx tree-sitter test"
+  },
+  "author": "meep.tech",
+  "license": "MIT",
+  "devDependencies": {
+    "tree-sitter-cli": "^0.20.8"
+  }
+}

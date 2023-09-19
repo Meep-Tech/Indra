@@ -11,9 +11,11 @@
 - **blx**: *Block* A Block. ##typ
 - **prx**: *Procedural |proc* A Procedural. ##typ
 - **def**: *Default* A Default value or type.
-- **ini**: *Initial Inputs* Used to define and access input arguments and parameters for procs.
+- **ini**: *InitialInput |in* Used to define and access input arguments and parameters for procs.
 - **exe**: *Used to access the current execution context for a proc.
 - **val**: *Value* An Instance or Reference Value which is stored in an Entry. ##typ
 - **obj**: *Instance |object* An Instance of a Structure or Reference to one within an Entry. ##typ
 - **ref**: *Reference* A Reference to an Instance of an Entry. ##typ
 - **key**: *Key* A Key to an Entry. ##typ
+- **doc**: *Documentation |##* A documentation comment
+- **old**: *Deprecated* A tag used to indicate

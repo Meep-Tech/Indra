@@ -1,6 +1,23 @@
 ---
 ---
+# Terms
+## Type
+General term. Refers to any structure or combination of Structures, Tags, and Entry Signatures used to specify the contents of another Instance of a Struct.
+
+### Archetype
+A specifically addressed structure use as an ephemeral interface for structural type-checking. Similar to an Interface with Extension Methods in C#
+
+#### Prototype
+A type with a Procedural Constructor which can be used with other Prototypes and Procs to generate a new Instance Struct. Similar to a Prototype in Javascript or a Class in C#
+
+### Shape
+A Shape is the current Type of an Instance, wwith all it's Traits, Tags, and Entry Signatures combined.
+
+#### Trait
+A Trait is the Sub-Structural Instance of an Archetype or Prototype that has been applied to a full Structure Instance. TTraits are the building blocks of an Instance's Shape, and can also be combined in multiple ways to produce new Prototypes and Archetypes. Traits of an Instance form a stack that is used to find the first matching Signature when trying to find, call, or invoke an Entry of that Instance.
+An Instance can be Masked by any applied or matching Trait via Type Checking. This provides a Reference to the original Instance with the desired Trait moved to the top of the stack.
+
 # Type Composition
-//a*a
+
 
 # Type Checking

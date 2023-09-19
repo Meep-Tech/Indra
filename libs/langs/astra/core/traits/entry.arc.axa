@@ -1,0 +1,23 @@
+#kvp
+.# >> |var |Entry
+
+parent_ :   !!_ #stx    |..
+key     ::> !!  #key
+val     :>  ??  #val    |Value
+alias_es:   ??  #key_s?
+type    :   ??  #typ
+
+# Sub-Types
+
+.#.named >> #var |nam
+  name_s: #key.name_s
+
+.#.ordered >> #var |ord
+  index_es: #key.index_s
+  indecies >> .indexes
+
+.#.patterned >> #var |ptn
+  pattern_s: #key.pattern_s
+
+.#.initial >> #var |ini |in
+  intro_s: #key_s

@@ -1,0 +1,5 @@
+```csharp
+names //# get and set
+  >> [key, ...aliases]
+  <<> ~/[key, ...aliases]: ini.arg; //# set uses deconstruction to set file-level values, and is only allowed on init.
+```
