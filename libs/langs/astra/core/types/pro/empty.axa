@@ -1,0 +1,28 @@
+### ##
+##  [[Empty]] is a special placeholder [[Type]] in [[AstrA]] used to      \
+##    represent a missing [[Entry]] or [[Return Value]].
+##
+##  .#notes:
+##    - Similar to `undefined` in Javascript and Typescript.
+##    - Has a [[Virtual]] [[Constructor]].
+##    - Has a [[Virtual]] [[Constructor]].
+###
+.# >> |mty |Empty #sym
+  .>>  ... #vrt
+  .s:: ... |Entries!
+
+### ##
+## # As an Abstract Type ##dox.caveat
+##  In [[AstrA]], the [[Proc]] [[Signature]] for all included [[Prototype]].s \
+##   that [[Extend]] [[Empty]] are [[Virtual]]; and thus cannot be used to initialize an \
+##   [[Instance]] of the given [[Type]]. This means there is no equivalent to a \
+##   global `null` type or literal that can be used for setting an [[Entry]] to [[Empty]] \
+##   explicitly; Instead the user must create their own unique [[Prototype]].s \
+##   that extend the base [[Empty]] [[Prototype]] for their specific purposes.
+##
+##  In the base language, the only non-basic [[Empty]] [[Type]].s are:
+##    - [[Void]]: Used to indicate a [[Proc]] lacks a [[Return Value]].
+##    - [[Unmatched]]: Used as the [[Return Value]] of a [[Type Check]] that doesn't match.
+##    - [[Uninitialized]]: Indicates that an Entry has not yet been set, or doesn't \
+##     exist at all on a given Instance.
+###

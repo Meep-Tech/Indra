@@ -1,0 +1,50 @@
+# Statement
+A [[Statement]] is a chained sequence of tokens that is evaluated at once; It is the main building block of an [[AstrA]] program.
+Statements come in multiple Forms and Types
+
+## Forms
+### Closure
+A [[Closure Statement]] uses explicit [[Bracket Delimiters]] and [[Entry Separators]] to encapsulate multiple [[Statements]] into a single [[Structure]], ignoring most whitespace, indentation, and newlines.
+The [[Super Scope]] of a [[Closure Statement]] is the most immediate  [[Closure]] or [[Branching Statement]] surrounding it (or it's parent [[Chain]]).
+
+## Branching (StruX)
+A [[Branching Statement]] uses [[StruX]] [[Context]] to branch multiple [[Statements]] together by *using* explicit whitespace, indentation, and newlines to separate [[Statements]] into [[Entries]].
+The [[Super Scope]] of a [[Branching Statement]] is the most immediate [[Branching Statement]] or [[Closure]] surrounding it (or it's parent [[Chain]]).
+
+### Chained (LinX)
+A [[Chained Statement]] uses [[LinX]] [[Context]] to chain multiple [[Statements]] together by *avoiding*  whitespace, indentation, and newlines and sticking to a single line of code (when possible).
+[[Chained Statement]].s usually begin with a [[Chain Prefix]] and rely on [[Chained Operators]] to combine multiple Sub-[[Statements]] into one line of code.
+The [[Super Scope]] of a [[Chained Statement]] is the most immediate [[Branching Statement]] or [[Closure]] surrounding the entire chain.
+  **Note**: While Sub-[[Statements]] within a [[Chain]] can have their own applied [[Local Scope]]: A [[Chain]] as a whole is not considered a [[Scope]] of its own, and thus using: `..` or `sup.of:.`, within a [[Chain]] [[Context]] will always escape to the surrounding [[Branching Statement]] or [[Closure]].
+
+## Markup (BloX)
+An [[Markup Statement]] uses [[BloX]] [[Context]] and [[BloX Markup]] to build dynamic views and interactive user interfaces with a dynamic set of Markdown and BBCode like syntaxes. [[Markup Statement]].s vary in their use of meaningful whitespace, sometimes using it for formatting and semantic spacing, and other times ignoring it all-together.
+[[Markup Statement]].s follow slightly complex [[Scope]] rules, but they generally follow the same nesting rules as Markdown Elements, HTML Tags, [[Closure]] and the other [[AstrA]] [[Statement#Forms|Statement Forms]].
+
+## Types
+## Expression
+[[Expressions]] are [[Statements]] that result in a [[Return Value]].
+
+### Literal
+[[Literal]].s on their own: such as plain [[String]].s, [[Block]].s, and [[Number]].s, return themselves as their [[Return Value]]. Used to declare new [[Instance]] data.
+
+### Invocation
+[[Invocation]].s are [[Expressions]] that *invoke* [[Entry]].s to [[Return Value|return]] their [[Value]].s or execute their [[Proc]] logic. This is often also called Calling a [[Proc]]/ [[Entry]]/[[Variable]].
+
+#### Lookup
+[[Invocation]].s are [[Expressions]] that find *invoke* [[Entry]].s to [[Return Value|Return]] the [[Value]] at the provided [[Key]]/[[Address]].
+
+#### Execution
+[[Execution]].s are [[Invocation]].s that *execute* [[Proc|Procedural]] logic stored at a provided [[Key]]/[[Address]]. These are similar to a Function Call/Invokation in other languages. These types of [[Invocation]].s focus on the [[Entry]] as the invokee; allowing other [[Entry]]ies to be passed as arguments.
+
+#### Operation
+[[Operation]].s are [[Expressions]] that use [[Operators]] to manipulate [[Entry]].s and invoke [[Proc Defenition]].s via symbolic composition. These include Binary, Unary, and Ternary [[Operation]].s. These types of [[Invocation]].s focus on the symbol as the invokee, and the [[Entry]]ies as the arguments invoker.
+
+## Assignment
+[[Assignment]].s are [[Statements]] that either *change the value of exiting [[Entry]].s or create new* [[Entry]].s wthinin [[Instance]].s of [[Structure]].s or [[Proc Defenition]].s.
+
+### Definitions
+[[Definition]].s are [[Assignment]].s that *create new* [[Entry]].s with varying [[Value]]s and [[Type]]s within an specified, allowed, and accessable [[Scope]].
+
+### Mutations
+[[Mutation]].s are [[Assignment]].s that *change the value of exiting [[Entry]].s;*.

@@ -1,0 +1,47 @@
+## A Metadata Type Used to Represent a Field, Property, or Member of a Structure which is Addressed and Invokable via a Key or Alias.
+.# >> |var |Entry
+
+### #Traits
+.#kvp
+.#val ::>> .value
+###
+
+### #Fields
+### #Inputs
+. key.   ::>  !!       #key     >name >index >pattern
+.value   :>   ??       #val     |val
+###
+
+.parent  ::   !!_      #stx
+.type    ::   ??       #typ
+.alias_es:    ??       #key_s?
+###
+
+### #Getters
+..  ::>>
+  .parent
+###
+
+### #Setters #Inputs
+keys <<>
+  [.key, ....aliases]:in.arg
+###
+
+### #Variants
+## An [[Entry]] that uses one or more text/string based [[Key.Name]].s as a [[Key]] or [[Alias]].
+.#.named ...>> |nam
+  .name_s:: #key.name_s
+
+## An [[Entry]] that uses one or more numeric [[Key.Index]].s as a [[Key]] or [[Alias]].
+.#.ordered ...>> |ord
+  .index_es:: #key.index_s
+  .indecies >> .indexes
+
+## An [[Entry]] that uses one or more regex based [[Pattern]].s as a [[Key]] or [[Alias]].
+.#.patterned ...>> |ptn
+  .pattern_s:: #key.pattern_s
+
+## An [[Entry]] that can be used as an [[Initial Input]] using it's `intro` [[Alias]].s.
+.#.initial ...>> |ini |in
+  .intro_s:: #key_s
+###

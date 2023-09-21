@@ -1,0 +1,45 @@
+.# >> stx, Structure, struct
+
+___:: #NATIVE:'axa.stx.nat'
+
+# Iteration
+
+.#keys:
+  ## All the iterable keys of the structure
+  entries >> ..#vars.select:.key
+
+.#vals:
+  ## All the iterable values in the structure.
+  entries >> ..#vars.select:.value
+
+.#vars:
+  ## All the Entries in the structure as key value pairs/named variables.
+  entries >> .___
+
+## The number of entries in the structure.
+count: ...___.count
+
+# Getters and Setters
+
+## explicit get can be used to get a value from a structure by name key
+get >>
+  -> name: #str|int
+  .___.get_value_by_key(name)
+get >>
+  -> pattern #key
+  .___.get_values_by_pattern(pattern)
+
+## explicit set can be used to set a value in a structure by key
+set << #bol
+  -> key: #str
+  -> val: #any
+  .___.set_value_by_key(key, val)
+
+## Returns an entry with the given key using dot notation.
+.*
+  >> ...get
+  << ...set
+
+## TOOD: Move this to mote, slash dot is for motes!:
+## Returns an entry with the given key using dot notation.
+# /* >> ...*

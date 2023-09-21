@@ -1,0 +1,4 @@
+---
+.#notes:
+  - A Proc's tags apply to its result by default. You must put any tags specific to the proc in the #prx[] tag.
+---

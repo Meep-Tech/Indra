@@ -1,0 +1,2 @@
+A type that exposes a few values at first and lazy loads the rest on a delay.
+Used to avoid the `user`, `userKey` anti-pattern, instead resulting in just a `user` entry where you can call `user.id` without it fully loading `user` until you call another property/entry.

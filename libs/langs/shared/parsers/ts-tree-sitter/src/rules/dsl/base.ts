@@ -46,7 +46,7 @@ declare function field(
  * @param options possible rule choices
  */
 declare function choice(
-  ...rules: Rule[]
+  ...rules: [Rule, Rule, ...Rule[]]
 ): ChoiceToken;
 
 /**
@@ -57,7 +57,7 @@ declare function choice(
  * @param rules ordered rules that comprise the sequence
  */
 declare function seq(
-  ...rules: Rule[]
+  ...rules: [Rule, Rule, ...Rule[]]
 ): SeqToken;
 
 /**

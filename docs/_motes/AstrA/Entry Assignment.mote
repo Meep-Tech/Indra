@@ -1,25 +1,106 @@
-# Operators
-- `:`: #mod #var.named
-- `::`: #cst #var.named
-- `>>`: #prx.cst #get #prx._mod #var.named #@:entry
-- `<<`: #prx.mut #set #prx._mod #var.named #@:entry
+## File Prefixes
+- `#:`: ##tag
+- `.#:`: ##arc
+- `>>`: ##prx
+- `.# >>`: ##pro
+- `---\n`: ##mot ##req:tkn.delimiter.end:`\n---\n`
 
-# Modifiers
-- `=`: #get #!set
-- `>`: #ini
-- `??`: #def
-- `!!`: #req
+# Line Prefixes
+{note: All line prefixes require a trailing space or tab after them}
+- `>`: ##ini ##_get ##_mut
+- `>>`: ##prx.cst ##get ##prx._mut
+- `<<`: ##prx.mut ##set ##prx._mut ##scp:.
+- `-`: ##mut ##set ##var.ordered
+- `->`: #ini ##_get ##_mut ##var.ordered
+- `.`: ##mut #lcl
+- `###`: ##sec ##req:tkn.delimiter.end`\n###\n`
+  - `#XXX`: #sec.tag #tkn.inline #tkn.after:..++tkn.spacing
 
-## Key Prefixes
-- `.#.`: #arc
+# Key Prefixes
+- `.`: ##scp:mys
+- `..`: ##scp:sup.of:mys
+- `~/`: ##scp:mot.of:mys
+- `/`: ##scp:web.of:mys
+- `//`: ##scp:gbl
+- `.#.`: ##scp:arc.of:mys
+- `.#`: ##scp:trts.of:mys
+- `#`: #tag
+- `.#..XXX.`: ##scp:sup.first:??.#XXX
 
 ## Name Prefixes
-- `_`: #_get
-- `__`: #__get
-- `___`: #___get
+- `_`: ##_get
+- `__`: ##__get
+- `___`: ##___get
 
-## Line Prefixes
-- `>`: #ini #_get #_mod
-- `>>`: #prx.cst #get #prx._mod #@:parent
-- `<<`: #prx.mut #set #prx._mod #@:parent
-- `-`: #mod #var.ordered
+# Special Keys
+- `.`: ##mys
+- `*`: ##stx.lookup.wild.dot
+- `/*`: ##stx.lookup.wild.slash
+- ``` `XXX` ```: ##stx.lookup.pattern
+- ``` .`XXX`: ```: ##stx.lookup.pattern.dot
+- ``` /`XXX`: ```: ##stx.lookup.pattern.slash
+- ```(`XXX`)```: ##stx.lookup.pattern.round
+- ```[`XXX`]```: ##stx.lookup.pattern.square
+- ```{`XXX`}```: ##stx.lookup.pattern.curly
+- `.#.s`: ##arc:itr.of:typ.of:mys
+- `.#`: ##arc.of:mys
+
+# Destructors
+{notes:
+  - Destructors cannot have spacing between them and their Assigner.
+  - The Rest operator used with the Destructor Assignment Pattern can be used in various combonations and positions. }
+- `{ XXX, YYY }`: ##stx.destruct.named{XXX: .XXX, YYY: .YYY}
+- `[ XXX, YYY ]`: ##stx.destruct.ordered{XXX: .0, YYY: .1}
+- `[ ...XXX ]`: ##stx.destruct.ordered(XXX: all)
+- `{ ...XXX }`: ##stx.destruct.named(XXX: all)
+- `[ XXX, ...YYY ]`: ##stx.destruct.ordered{XXX: .0, YYY: rest}
+- `[ ...XXX, YYY ]`: ##stx.destruct.ordered{XXX: preceding, YYY: .-1}
+- `{ XXX: YYY }`: ##stx.destruct.named{YYY: .XXX}
+- `{ XXX: YYY, AAA: ZZZ }`: ##stx.destruct.named{YYY: .XXX, ZZZ: .AAA}
+
+## Name Suffixes
+- `_s`: #_s
+
+# Key Suffixes
+- `_`: ##mut_
+- `__`: ##mut__
+- `___`: ##mut___
+
+# Assigners
+- `:`: ##mut ##set ##var.named
+- `::`: ##cst ##var.named
+- `>>`: ##prx.mut ##get ##var.named
+- `<<`: ##prx.mut ##set ##var.named ##scp:.".key"
+- `:>>`: ##prx.cst ##get ##prx._mut ##var.named
+- `:<<`: ##prx.cst ##set ##prx._mut ##var.named ##scp:.".key"
+- `::>>`: ##prx.cst ##get
+- `::<<`: ##prx.cst ##set ##scp:.".key"
+- `~>>`: ##arc ##prx.mut ##get ##var.named
+- `~::>>`: ##arc ##prx.cst ##get ##var.named
+- `~:>>`: ##arc ##prx.cst #prx._mut ##get ##var.named
+- `...>>`: ##pro.variant ##prx.mut ##get
+
+# Modifiers
+- `=`: ##get ##!set
+- `>`: ##ini
+- `??`: ##def
+- `!!`: ##req
+- `!!_` ##req_
+
+# Aliases
+- `|XXX`: #aka:XXX
+- `>XXX`: #ini.aka:XXX
+- `>!`: ##!ini
+
+# Alias Suffixes
+- `!`: #aka.primary
+
+# Tags
+- `#XXX`: #tag.get:XXX
+- `##XXX`: ##tag.lit:XXX
+- `## XXX`: ##dox:XXX #til:eol
+- `## >> XXX`: ##log:XXX
+
+# Tag Suffixes
+- `?`: #tag.optional
+- `!`: #tag.explicit

@@ -1,21 +1,47 @@
-- **any**: *Any* Any (Non-Empty) Type. ##typ
-- **<tag>?**: *Optional* Marks the given Type(<type>) as Optional/Nullable/'or Empty'. ##typ
-- **par**: *Paragraph |p* A Paragraph of Blox Markdown Text. ##typ
-- **str**: *String* A String of Text. ##typ
-- **txt**: *Text* A String, Paragraph, or Pattern.
-- **ptn**: *Pattern* A special pattern between backticks.
-- **sst**: *SimpleString* A Simple String of Literal Text using single quotes. ##typ
-- **stt**: *StringTemplate* A String of Text with Template style Interpolation Variables that uses double quotes. ##typ
-- **tst**: *Test* A Test. ##typ
-- **stx**: *Structure| struct* A Structure. ##typ
-- **blx**: *Block* A Block. ##typ
-- **prx**: *Procedural |proc* A Procedural. ##typ
-- **def**: *Default* A Default value or type.
-- **ini**: *InitialInput |in* Used to define and access input arguments and parameters for procs.
-- **exe**: *Used to access the current execution context for a proc.
-- **val**: *Value* An Instance or Reference Value which is stored in an Entry. ##typ
-- **obj**: *Instance |object* An Instance of a Structure or Reference to one within an Entry. ##typ
-- **ref**: *Reference* A Reference to an Instance of an Entry. ##typ
-- **key**: *Key* A Key to an Entry. ##typ
-- **doc**: *Documentation |##* A documentation comment
+- **any**: *Any* Any (Non-Empty) Type. ##arc
+- **<tag>?**: *Optional* Marks the given Type(<tag>) as Optional/Nullable/'or Empty'. ##att
+- **!<tag>**: *Not <tag>* Marks the given Type(<tag>) as Not-Applied/Removed. ##att
+- **par**: *Paragraph |p* A Paragraph of Blox Markdown Text. ##pro
+- **str**: *String* A String of Text. ##pro
+- **txt**: *Text* A String, Paragraph, or Pattern. ##pro
+- **ptn**: *Pattern* A special pattern between backticks. ##pro
+- **sst**: *SimpleString* A Simple String of Literal Text using single quotes. ##pro
+- **stt**: *StringTemplate* A String of Text with Template
+style Interpolation Variables that uses double quotes. ##pro
+- **tst**: *Test* A Test. ##att
+- **stx**: *Structure| struct* A Structure. ##pro
+- **blx**: *Block* A Block. ##pro
+- **prx**: *Procedural |proc* A Procedural. ##pro
+- **def**: *Default* A Default value or type. ##att ##typ?
+- **ini**: *InitialInput |in* Used to define and access input arguments and parameters for procs. ##att
+- **exe**: *Used to access the current execution context for a proc. ##att
+- **val**: *Value* An Instance or Reference Value which is stored in an Entry. ##pro
+- **obj**: *Instance |object* An Instance of a Structure or Reference to one within an Entry. ##pro
+- **ref**: *Reference* A Reference to an Instance of an Entry. ##pro
+- **key**: *Key |EntryKey* A Key to an Entry. ##arc
+- **dox**: *Documentation |'#XXX'* A documentation comment.
 - **old**: *Deprecated* A tag used to indicate
+- **mys**: *Myself |'.'* A tag used to indicate the most local scope. Like this or self in other languages.
+- **trt**: *Trait |tr8* A tag used to expliitly indicate an Archetype or Prototype is being implemented via a Trait.
+- **pro**: *Prototype |proto* A tag used to indicate a Prototype.
+- **arc**: *Archetype |arch* A tag used to indicate an Archetype.
+- **lcl**: *Local* A tag used to indicate a local variable. These require an explicit Trait Mask to be applied to an Instance to be accessed.
+- **mut**: *Mutable* A tag used to indicate an Entry is Mutable. This means it can be Mutated, and by default also adds the Set tag. The Set tag can be removed to make it Read-Only but still Mutatable using `#mut--set` or `#mut #!set` or `#mut!`.
+- **mut!**: *Mutable--Set** A tag used to indicate an entry's value can be Mutated according to it's own Access Rules, but cannot be entirely set/replaced. Shorthand for `#mut--set` or `#mut #!set`.
+- **cst**: *Constant* A tag used to indicate an Entry is Constant. This means it can only be Set once and its Value can not be Mutated from the current Entry.
+- **get**: *Get* A tag used to indicate an Entry is Gettable. This means it can be Accessed and Read' but also disables the setting of the Value from this Entry. It also can be used to indicate a Proc is a Getter.
+- **set**: *Set* A tag used to indicate an Entry is Settable. This means it can be Accessed and Written to' but also disables the getting of the Value from this Entry. It also can be used to indicate a Proc is a Setter.
+- **req**: *Required* A tag used to indicate an Entry is Required in the current context. This is used for indicating Abstract Procs as well as Required Initial Inputs.
+- **req_**: *Required_* A tag used to indicate an Entry is expected to be required in a protected context. This is similar to the `required` keyword in C# as well as its common `= null!` convention. This leaves the field entirely uninitalized and thus will cause errors if a lookup attempt is made without its value being set.
+- **att**: *Attribute* A tag used to indicate an Entry is an Attribute. This means it is a special type of tag that modifies the Signature but not the Structure of an Entry. This is used to indicate gettability, settability, mutability, and constantnness, and other special properties of an Entry. They usually dont effect the contained data and its shape, bu instead deal more with their runtime behaviour and metadata.
+- **tkn**: *Token* A tag used to indicate an Language Token.
+- **aka**: *Alias* A tag used to indicate an Alias.
+- **ini.aka**: *InitialInput.Alias |in.aka* A tag used to indicate an Alias explicit to the Initial Input context of the current Structure.
+- **til**: *Until* A tag used to indicate a Until condition.
+- **wil**: *While* A tag used to indicate a While condition.
+- **sup**: *Super* A tag used to indicate a Super/Outer Scope; Usually the Parent Statement or Structure.
+- **sub**: *Sub* A tag used to indicate a Sub/Child Scope; Usually a contained Statment or Structal Entry.
+- **log**: *Log* A tag used to output debug logging
+- **vrt**: *Virtual* A tag used to indicate an Entry can only be Mutated via Inheritance.
+- **ptt**: *Protected* A tag used to indicate an Entry can only be Muatated or Accessed within contained or Extending types.
+- **sym**: *Symbol* Designates a Symbolic Type. Symbolic Types Type Match Nominally; requiring a Reference to the specific Archetype or Prototype instead of a compatible Structure Shape.
