@@ -45,3 +45,6 @@ style Interpolation Variables that uses double quotes. ##pro
 - **vrt**: *Virtual* A tag used to indicate an Entry can only be Mutated via Inheritance.
 - **ptt**: *Protected* A tag used to indicate an Entry can only be Muatated or Accessed within contained or Extending types.
 - **sym**: *Symbol* Designates a Symbolic Type. Symbolic Types Type Match Nominally; requiring a Reference to the specific Archetype or Prototype instead of a compatible Structure Shape.
+- **lit**: *Literal*
+- **lsi**: *List Item*
+- **lst**: *List*

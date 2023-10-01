@@ -1,0 +1,12 @@
+
+| Syntax Rule                                 | StruX  | ProX    | BloX  | LinX  | Tags                                 |
+| ------------------------------------------- | ------ | ------- | ----- | ----- | ------------------------------------ |
+| Mutable Field Declaration                   | `:`    | `~`     | `=`   | `.~`  | `var` `mut` `get` `set` `vrt`        |
+| Constant Field Declaration (Virtual)        | `::`   | `=`     | `::=` | `.=`  | `var` `cst` `get` `!set` `vrt`       |
+| Constant Field Declaration (Final)          | `:::`  | `::=`   | `::=` | .none | `var` `cst` `get` `!set` `fin`       |
+| Mutable Proc Declaration                    | .prox  | `>>`    | .prox | .prox | `prx` `mut` `get` `!set` `vrt`       |
+| Constant Proc Declaration (Virtual)         | `:>>`  | `=>>`   | .prox | .prox | `prx` `cst` `get` `!set` `vrt`       |
+| Constant Proc Declaration (Final)           | `::>>` | `==>>`  | .prox | .none | `prx` `cst` `get` `!set` `fin`       |
+| Mutable Proc Declaration (Async)            | `>> %` | `>>%`   | .prox | .prox | `prx` `mut` `get` `!set` `vrt` `fut` |
+| Constant Proc Declaration (Virtual) (Async) | `:>%`  | `=>>%`  | .prox | .prox | `prx` `cst` `get` `!set` `vrt` `fut` |
+| Constant Proc Declaration (Final) (Async)   | `::>%` | `==>>%` | .prox | .none | `prx` `cst` `get` `!set` `fin` `fut` |

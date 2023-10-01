@@ -1,0 +1,26 @@
+.#: |any
+  ## A locally unique and human readable identifier. The Primary Key of this Type.
+  key:: .#var ?? .key !! .#als.0 !! .#typ.inOwnFile ?: .#typ.file.name !: err()
+  ## Alternate local keys that are preferably but not necessarily unique.
+  aliases:> Any #str_s
+
+  key::
+    ## A locally unique and human readable identifier. The Primary Key of this Type. Usually short and lowercase.
+    main:: .#var?.key !! .#als?.0 !! .#fil?.name !!
+    ## A longer alternative to the main key. A display key for this type. Usually long and PascalCase.
+    long:: .#als?.1.0.isCapitalLetter ?: .#als?.1 !! .main.toPascalCase
+    full >> .#var ??: .path.long
+    ## Alternate local keys that are preferably but not necessarily unique.
+    alias_es:: .#als?.exclude[.main]
+    .#str >> .main
+  keys::
+    ...key
+    .#itr >> .hsh[.main, .long, ...aliases]
+    .#str >> .#itr
+
+  .#doc:
+    desc: The base type for all Archetypes (Even if not explicitly stated), except for [[Empty]].
+
+## Used to get a string representation of the current value.
+. .#str: !!
+. .# ::>> #typ.of:mys

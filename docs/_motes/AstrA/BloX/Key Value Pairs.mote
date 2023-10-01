@@ -24,6 +24,12 @@
 - `![[target|alias]]`: Aliased-Title Embeded Mote
 - `![[target|]]`: Quiet Embeded Mote
 - `![[...target]]`: Dynamically Embeded Mote Contents #?
+- `word(aside)` ##key.hidden.default ##scp.local ##mut ##wrd ##typ:{aside}
+- `words (aside).` ##key.hidden.default ##scp.local ##mut ##snt ##typ:{aside}
+- `item {data}`
+- `item {data};`
+- `item {{tooltip}}`
+- `item ###tag`
 
 # Deprecated
 ## Prox Setter Based

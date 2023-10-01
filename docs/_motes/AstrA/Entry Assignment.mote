@@ -9,9 +9,9 @@
 {note: All line prefixes require a trailing space or tab after them}
 - `>`: ##ini ##_get ##_mut
 - `>>`: ##prx.cst ##get ##prx._mut
-- `<<`: ##prx.mut ##set ##prx._mut ##scp:.
-- `-`: ##mut ##set ##var.ordered
-- `->`: #ini ##_get ##_mut ##var.ordered
+- `<<`: ##prx.cst ##set ##prx._mut ##scp:.
+- `-`: ##mut ##set ##var.field.ordered
+- `->`: #ini ##_get ##_mut ##var.field.ordered
 - `.`: ##mut #lcl
 - `###`: ##sec ##req:tkn.delimiter.end`\n###\n`
   - `#XXX`: #sec.tag #tkn.inline #tkn.after:..++tkn.spacing
@@ -67,18 +67,18 @@
 - `___`: ##mut___
 
 # Assigners
-- `:`: ##mut ##set ##var.named
-- `::`: ##cst ##var.named
-- `>>`: ##prx.mut ##get ##var.named
-- `<<`: ##prx.mut ##set ##var.named ##scp:.".key"
-- `:>>`: ##prx.cst ##get ##prx._mut ##var.named
-- `:<<`: ##prx.cst ##set ##prx._mut ##var.named ##scp:.".key"
+- `:`: ##mut ##set ##fld.named
+- `::`: ##cst ##fld.named
+- `>>`: ##prx.mut ##get ##prx.named
+- `<<`: ##prx.mut ##set ##prx.named ##scp:.".key"
+- `:>>`: ##prx.cst ##get ##prx._mut ##prx.named
+- `:<<`: ##prx.cst ##set ##prx._mut ##prx.named ##scp:.".key"
 - `::>>`: ##prx.cst ##get
 - `::<<`: ##prx.cst ##set ##scp:.".key"
-- `~>>`: ##arc ##prx.mut ##get ##var.named
-- `~::>>`: ##arc ##prx.cst ##get ##var.named
-- `~:>>`: ##arc ##prx.cst #prx._mut ##get ##var.named
-- `...>>`: ##pro.variant ##prx.mut ##get
+- `~>>`: ##arc ##prx.mut ##get ##prx.named
+- `~::>>`: ##arc ##prx.cst ##get ##prx.named
+- `~:>>`: ##arc ##prx.cst #prx._mut ##get ##prx.named
+- `...>>`: ##pro.variant ##prx.mut ##get (can be stacked like a builder during construction?)
 
 # Modifiers
 - `=`: ##get ##!set
