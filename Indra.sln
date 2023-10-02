@@ -3,9 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AstrA.Parser", "libs\langs\astra\parsers\AstrA.Parser\AstrA.Parser.csproj", "{16808CB8-E4E5-4968-A193-C7D4A853B7E1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Meep.Tech.Parser", "..\..\libs\langs\parsers\Meep.Tech.Parser\Meep.Tech.Parser.csproj", "{A9533827-E370-4CA3-82AD-ECCB943B70FE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Meep.Tech.Parser", "..\..\libs\langs\parsers\Meep.Tech.Parser\Meep.Tech.Parser.csproj", "{156DB037-98CD-4188-84C5-1E345E845835}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "libs", "libs", "{83A6D198-A141-4F11-9CA7-D0B7E4938FA8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "langs", "langs", "{FF6F9640-0180-4EDA-A82F-1490D7B9CBD1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "astra", "astra", "{3F229854-AD4E-469A-9E4F-2CCC8708D167}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "parsers", "parsers", "{493B7986-D955-4C77-8FC4-E0FCD99BCB77}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AstrA.Parser", "libs\langs\astra\parsers\AstrA.Parser\AstrA.Parser.csproj", "{554DA675-205F-4C8F-B328-0F18BFFF491F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -16,13 +24,19 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{16808CB8-E4E5-4968-A193-C7D4A853B7E1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{16808CB8-E4E5-4968-A193-C7D4A853B7E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{16808CB8-E4E5-4968-A193-C7D4A853B7E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{16808CB8-E4E5-4968-A193-C7D4A853B7E1}.Release|Any CPU.Build.0 = Release|Any CPU
-		{156DB037-98CD-4188-84C5-1E345E845835}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{156DB037-98CD-4188-84C5-1E345E845835}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{156DB037-98CD-4188-84C5-1E345E845835}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{156DB037-98CD-4188-84C5-1E345E845835}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A9533827-E370-4CA3-82AD-ECCB943B70FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A9533827-E370-4CA3-82AD-ECCB943B70FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A9533827-E370-4CA3-82AD-ECCB943B70FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A9533827-E370-4CA3-82AD-ECCB943B70FE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{554DA675-205F-4C8F-B328-0F18BFFF491F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{554DA675-205F-4C8F-B328-0F18BFFF491F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{554DA675-205F-4C8F-B328-0F18BFFF491F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{554DA675-205F-4C8F-B328-0F18BFFF491F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{FF6F9640-0180-4EDA-A82F-1490D7B9CBD1} = {83A6D198-A141-4F11-9CA7-D0B7E4938FA8}
+		{3F229854-AD4E-469A-9E4F-2CCC8708D167} = {FF6F9640-0180-4EDA-A82F-1490D7B9CBD1}
+		{493B7986-D955-4C77-8FC4-E0FCD99BCB77} = {3F229854-AD4E-469A-9E4F-2CCC8708D167}
+		{554DA675-205F-4C8F-B328-0F18BFFF491F} = {493B7986-D955-4C77-8FC4-E0FCD99BCB77}
 	EndGlobalSection
 EndGlobal

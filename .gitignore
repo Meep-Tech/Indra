@@ -3,6 +3,7 @@
 
 ## IDE Settings
 **/.vscode
+**/.idea
 
 # Dependencies
 **/node_modules
