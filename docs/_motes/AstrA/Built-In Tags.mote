@@ -35,8 +35,8 @@ style Interpolation Variables that uses double quotes. ##pro
 - **req_**: *Required_* A tag used to indicate an Entry is expected to be required in a protected context. This is similar to the `required` keyword in C# as well as its common `= null!` convention. This leaves the field entirely uninitalized and thus will cause errors if a lookup attempt is made without its value being set.
 - **att**: *Attribute* A tag used to indicate an Entry is an Attribute. This means it is a special type of tag that modifies the Signature but not the Structure of an Entry. This is used to indicate gettability, settability, mutability, and constantnness, and other special properties of an Entry. They usually dont effect the contained data and its shape, bu instead deal more with their runtime behaviour and metadata.
 - **tkn**: *Token* A tag used to indicate an Language Token.
-- **aka**: *Alias* A tag used to indicate an Alias.
-- **ini.aka**: *InitialInput.Alias |in.aka* A tag used to indicate an Alias explicit to the Initial Input context of the current Structure.
+- **als**: *Alias* A tag used to indicate an Alias.
+- **ini.als**: *InitialInput.Alias |in.aka* A tag used to indicate an Alias explicit to the Initial Input context of the current Structure.
 - **til**: *Until* A tag used to indicate a Until condition.
 - **wil**: *While* A tag used to indicate a While condition.
 - **sup**: *Super* A tag used to indicate a Super/Outer Scope; Usually the Parent Statement or Structure.
@@ -48,3 +48,7 @@ style Interpolation Variables that uses double quotes. ##pro
 - **lit**: *Literal*
 - **lsi**: *List Item*
 - **lst**: *List*
+- **map**: *Map* A structure that maps keys to values. A map cannot contain duplicate keys; each key can map to at most one value.
+- **arr**: *Array* A structure that contains an ordered and indexable collection of elements.
+- **dic**: *Dictionary* String-Only Map
+- **hsh**: *Hash Set |HashSet |HashMap*

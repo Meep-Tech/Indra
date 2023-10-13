@@ -16,7 +16,7 @@
 - `###`: ##sec ##req:tkn.delimiter.end`\n###\n`
   - `#XXX`: #sec.tag #tkn.inline #tkn.after:..++tkn.spacing
 
-# Key Prefixes
+# Identifier Prefixes
 - `.`: ##scp:mys
 - `..`: ##scp:sup.of:mys
 - `~/`: ##scp:mot.of:mys
@@ -32,7 +32,7 @@
 - `__`: ##__get
 - `___`: ##___get
 
-# Special Keys
+# Special Keys and Identifiers
 - `.`: ##mys
 - `*`: ##stx.lookup.wild.dot
 - `/*`: ##stx.lookup.wild.slash
