@@ -28,9 +28,9 @@
 - `.#..XXX.`: ##scp:sup.first:??.#XXX
 
 ## Name Prefixes
-- `_`: ##_get
-- `__`: ##__get
-- `___`: ##___get
+- `_`: ##_get Protected Internal
+- `__`: ##__get Internal
+- `___`: ##___get Private
 
 # Special Keys and Identifiers
 - `.`: ##mys

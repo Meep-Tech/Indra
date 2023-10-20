@@ -1,23 +1,12 @@
+namespace Indra.AstrA.Tokens;
 
-
-
-namespace Indra.AstrA {
-
-  namespace Tokens {
-
-    namespace Sources {
-      /// <summary>
-      /// A file containing AstrA code and state-data.
-      /// </summary>
-      public class File : Source, Token.ISplayed {
-        /// <inheritdoc />
-        public new static TokenTypesFetcher TYPES
-          => _ => _
-            ._<Files.Trait>()
-            ._<Files.Data>()
-            ._<Files.View>()
-            ._<Files.Mote>();
-      }
-    }
-  }
-}
+/// <summary>
+/// A file containing AstrA code and state-data.
+/// </summary>
+[Token.Splayed]
+[Token.Choice<TraitFile>]
+[Token.Choice<DataFile>]
+[Token.Choice<ViewFile>]
+[Token.Choice<MoteFile>]
+public class File
+  : Source;

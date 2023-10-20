@@ -9,7 +9,7 @@ namespace Indra.AstrA {
     /// </summary>
     public class Value : Token.Type, Token.ISplayed {
       /// <inheritdoc />
-      public static TokenTypesFetcher TYPES
+      public static TokenTypesFetcher options
         => _ => _
           ._<Values.Literal>()
           ._<Values.Reference>()

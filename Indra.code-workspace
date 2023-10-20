@@ -1,0 +1,14 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "../../libs/langs/parsers/Meep.Tech.Parser"
+		},
+		{
+			"path": "../../libs/langs/parsers/meep-tech_grammar"
+		}
+	],
+	"settings": {}
+}

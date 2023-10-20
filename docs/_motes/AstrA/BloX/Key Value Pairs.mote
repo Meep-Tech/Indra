@@ -27,8 +27,11 @@
 - `word(aside)` ##key.hidden.default ##scp.local ##mut ##wrd ##typ:{aside}
 - `words (aside).` ##key.hidden.default ##scp.local ##mut ##snt ##typ:{aside}
 - `item {data}`
-- `item {data};`
-- `item {{tooltip}}`
+- `item --`: plain dash flag
+- `item ~~`: plain wiggle flag
+- `item ++`: plain plus flag
+- `item !{data}` as tooltip
+- `item {{tooltip}}` explicit tooltip
 - `item ###tag`
 
 # Deprecated

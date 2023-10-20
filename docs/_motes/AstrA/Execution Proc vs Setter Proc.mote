@@ -1,0 +1,50 @@
+
+Proc operator (`>>`) with inputs is different from the set operator (`<<`)
+[Ex:
+#+1 Definitions
+```
+## public prop color (get, protected set)
+color_: #Color?
+
+## public setter for color
+color <<
+  > #byt r, g, b
+  ## Called the Setter!
+  .color: Color(r, g, b)
+
+## public proc for color
+color >> 
+  > #byt r, g, b
+  ## >> Called the Proc!
+  .color: (r, g, b)
+```
+
+#+1 Usages
+
+**Setter**
+A setter uses the `:` setter operators and spacing or tree statements to indicate an invokation.
+```
+.color: (255, 255, 255)
+
+// or
+
+.color: 
+  255
+  255
+  255
+```
+
+**Proc**
+Proc calls uses brackets and a lack of spacing to indicate a call.
+```
+.color(255, 255, 255)
+
+// or
+
+.color( 
+  255
+  255
+  255
+)
+```
+]

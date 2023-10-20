@@ -1,12 +1,19 @@
 
-| Syntax Rule                                 | StruX  | ProX    | BloX  | LinX  | Tags                                 |
-| ------------------------------------------- | ------ | ------- | ----- | ----- | ------------------------------------ |
-| Mutable Field Declaration                   | `:`    | `~`     | `=`   | `.~`  | `var` `mut` `get` `set` `vrt`        |
-| Constant Field Declaration (Virtual)        | `::`   | `=`     | `::=` | `.=`  | `var` `cst` `get` `!set` `vrt`       |
-| Constant Field Declaration (Final)          | `:::`  | `::=`   | `::=` | .none | `var` `cst` `get` `!set` `fin`       |
-| Mutable Proc Declaration                    | .prox  | `>>`    | .prox | .prox | `prx` `mut` `get` `!set` `vrt`       |
-| Constant Proc Declaration (Virtual)         | `:>>`  | `=>>`   | .prox | .prox | `prx` `cst` `get` `!set` `vrt`       |
-| Constant Proc Declaration (Final)           | `::>>` | `==>>`  | .prox | .none | `prx` `cst` `get` `!set` `fin`       |
-| Mutable Proc Declaration (Async)            | `>> %` | `>>%`   | .prox | .prox | `prx` `mut` `get` `!set` `vrt` `fut` |
-| Constant Proc Declaration (Virtual) (Async) | `:>%`  | `=>>%`  | .prox | .prox | `prx` `cst` `get` `!set` `vrt` `fut` |
-| Constant Proc Declaration (Final) (Async)   | `::>%` | `==>>%` | .prox | .none | `prx` `cst` `get` `!set` `fin` `fut` |
+| Grammar Rule                                |     | StruX    | ProX               | BloX                    | LinX           | Tags                                                       |
+| ------------------------------------------- | --- | -------- | ------------------ | ----------------------- | -------------- | ---------------------------------------------------------- |
+| Mutable Field Declaration                   |     | `:`      | `~`                | `[ $`* ...etc`]`        | `.~`           | `var` `mut` `get` `set` `vrt`                              |
+| Constant Field Declaration (Virtual)        |     | `::`     | `=`                | `[ $`* .strux ...etc`]` | `.=`           | `var` `cst` `get` `!set` `vrt`                             |
+| Constant Field Declaration (Final)          |     | `:::`    | `=::`              | `[ $`* .strux ...etc`]` | .none          | `var` `cst` `get` `!set` `fin`                             |
+| Mutable Proc Declaration                    |     | .prox    | `>>`               | `[ $`* .strux ...etc`]` | `(` .strux `)` | `var` `prx` `mut` `get` `!set` `vrt`                       |
+| Mutable Copy Declaration                    |     | .prox    | `:>`               | `[ $`* .strux ...etc`]` | `(` .strux `)` | `var` `cpy` `mut` `get` `!set` `vrt`                       |
+| Constant Copy Declaration                   |     | .prox    | `::>`              | `[ $`* .strux ...etc`]` | `(` .strux `)` | `var` `cpy` `mut` `get` `!set` `vrt`                       |
+| Mutable Deep Copy Declaration               |     | .prox    | `:> **`*           | `[ $`* .strux ...etc`]` | `(` .strux `)` | `var` `cpy` `mut` `get` `!set` `vrt`                       |
+| Constant Proc Declaration (Virtual)         |     | `:>>`    | `=>>`              | `[ $`* .strux ...etc`]` | `(` .strux `)` | `var` `prx` `cst` `get` `!set` `vrt`                       |
+| Constant Proc Declaration (Final)           |     | `::>>`   | `==>>`             | `[ $`* .strux ...etc`]` | `(` .strux `)` | `var` `prx` `cst` `get` `!set` `fin`                       |
+| Mutable Proc Declaration (Async)            |     | `>> %`   | `%>>`              | `[ $`* .strux ...etc`]` | `(` .strux `)` | `var` `prx` `mut` `get` `!set` `vrt` `fut`                 |
+| Constant Proc Declaration (Virtual) (Async) |     | `:>> %`  | `=>> %`            | `[ $`* .strux ...etc`]` | `(` .strux `)` | `var` `prx` `cst` `get` `!set` `vrt` `fut`                 |
+| Constant Proc Declaration (Final) (Async)   |     | `::>> %` | `==>> %`           | `[ $`* .strux ...etc`]` | `(` .strux `)` | `var` `prx` `cst` `get` `!set` `fin` `fut`                 |
+| Block Component Call                        |     | .prox    | `[::`*` `...etc`]` | `[`*`: `...etc`]`       | .prox          | `val` `lit` `stx` `itr` `arr` `mup` `blx` `cmp` `exe{cal}` |
+| Naked Component Call                        |     | .none    | .none              | `.`*`:` ...etc          | .none          | `val` `lit` `stx` `itr` `arr` `mup` `nkd` `cmp` `exe{cal}` |
+| Unwrap a Future                             |     | .prox    | `%`                | .prox                   | .prox          | `!fut` `exe` `urp`                                         |
+| Call with Generic Arguments                 |     | .prox    | *`<`...etc`>`      | .prox                   | .prox          | `gen` `exe` `cal`                                          |

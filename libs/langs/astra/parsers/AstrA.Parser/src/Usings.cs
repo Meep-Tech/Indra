@@ -15,11 +15,11 @@ global using static Meep.Tech.Parser;
 #endregion
 #endregion
 
-#region Aliases
-global using TokenTypesFetcher = System.Linq.Expressions.Expression<
-  System.Func<
-    Meep.Tech.Parser.Token.Builder.TokenTypes,
-    Meep.Tech.Parser.Token.Builder.TokenTypes
-  >
->;
-#endregion
+// #region Aliases
+// global using TokenTypesFetcher = System.Linq.Expressions.Expression<
+//   System.Func<
+//     Meep.Tech.Parser.Token.Builder.TokenTypes,
+//     Meep.Tech.Parser.Token.Builder.TokenTypes
+//   >
+// >;
+// #endregion

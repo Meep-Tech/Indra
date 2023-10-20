@@ -14,18 +14,18 @@ style Interpolation Variables that uses double quotes. ##pro
 - **prx**: *Procedural |proc* A Procedural. ##pro
 - **def**: *Default* A Default value or type. ##att ##typ?
 - **ini**: *InitialInput |in* Used to define and access input arguments and parameters for procs. ##att
-- **exe**: *Used to access the current execution context for a proc. ##att
+- **exe**: *Used to access the current execution context for a proc call invokation etc. ##att
 - **val**: *Value* An Instance or Reference Value which is stored in an Entry. ##pro
 - **obj**: *Instance |object* An Instance of a Structure or Reference to one within an Entry. ##pro
 - **ref**: *Reference* A Reference to an Instance of an Entry. ##pro
 - **key**: *Key |EntryKey* A Key to an Entry. ##arc
 - **dox**: *Documentation |'#XXX'* A documentation comment.
 - **old**: *Deprecated* A tag used to indicate
-- **mys**: *Myself |'.'* A tag used to indicate the most local scope. Like this or self in other languages.
+- **own**: *Own |Local |'.'* A tag used to access the most local scope. Like this or self in other languages. Also used to indicate a local only variable; These require an explicit Trait Mask to be applied to an Instance to be accessed.
 - **trt**: *Trait |tr8* A tag used to expliitly indicate an Archetype or Prototype is being implemented via a Trait.
 - **pro**: *Prototype |proto* A tag used to indicate a Prototype.
 - **arc**: *Archetype |arch* A tag used to indicate an Archetype.
-- **lcl**: *Local* A tag used to indicate a local variable. These require an explicit Trait Mask to be applied to an Instance to be accessed.
+- <s>**lcl**: *Local* ##old.see:own</s>
 - **mut**: *Mutable* A tag used to indicate an Entry is Mutable. This means it can be Mutated, and by default also adds the Set tag. The Set tag can be removed to make it Read-Only but still Mutatable using `#mut--set` or `#mut #!set` or `#mut!`.
 - **mut!**: *Mutable--Set** A tag used to indicate an entry's value can be Mutated according to it's own Access Rules, but cannot be entirely set/replaced. Shorthand for `#mut--set` or `#mut #!set`.
 - **cst**: *Constant* A tag used to indicate an Entry is Constant. This means it can only be Set once and its Value can not be Mutated from the current Entry.
@@ -52,3 +52,17 @@ style Interpolation Variables that uses double quotes. ##pro
 - **arr**: *Array* A structure that contains an ordered and indexable collection of elements.
 - **dic**: *Dictionary* String-Only Map
 - **hsh**: *Hash Set |HashSet |HashMap*
+- **etc**: *Placeholder |EtCetera* Used for placholder values. [Ex:`{#int test: ...etc}`]
+- **cal**: *Call* A tag used to indicate a Call.
+- **ivk**: *Invocation* A tag used to indicate an Invocation.
+- **cll**: *Cell* A tag used to indicate a Cell.
+- **opt**: *Option |Optional* A tag used to indicate an Option.
+- **unr**: *Unary* A tag used to indicate a Unary Operation.
+- **urp**: *Unwrap* A tag used to indicate an Unwrap Operation.
+- **tgt**: *Target* A tag used to indicate a Target.
+- **ops**: *Operation* A tag used to indicate an Operation.
+- **opr**: *Operator* A tag used to indicate an Operator.
+- **ori**: *Origin* A tag used to indicate an Origin.
+- **src**: *Source* A tag used to indicate a Source or Source Code.
+- **gen**: *Generic* A tag used to indicate a Generic.
+- **grr**: *Generator* A tag used to indicate a Generator.
