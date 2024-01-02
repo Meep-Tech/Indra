@@ -1,4 +1,0 @@
-- Named Block: [ex; `[key: Composition]`, `[key: .value]`]
-- Anonymous Captured Block: [ex; `[: Composition]`]
-- Component Block: [ex; `[ComponentKey:: { functional-arg: .value } Compositional Args]`]
-- Appended to Named Block: [ex; `[key: && Composition]`] Appends the value to the existing [[Entry]] at the given [[Key]](`key`); turning it into an [[NTT]] if it isn't one yet. ##req::'`key` was previously declared, and the existing entry has the potential to be an [[NTT]]'.

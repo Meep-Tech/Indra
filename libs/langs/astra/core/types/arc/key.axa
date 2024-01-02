@@ -1,6 +1,0 @@
-.#: |key |EntryKey #str|int|ptn
-  .word :::>> //keyword
-  .s >> ...
-    of >> #keys
-      > type:: #typ?
-      type?.keys ?? []

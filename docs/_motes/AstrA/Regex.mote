@@ -1,3 +1,0 @@
-```yaml
-test-matcher: rgx/test.*[\?|\!]/gm
-```

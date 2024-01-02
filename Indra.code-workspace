@@ -4,11 +4,22 @@
 			"path": "."
 		},
 		{
-			"path": "../../libs/langs/parsers/Meep.Tech.Parser"
+			"path": "../tools"
 		},
 		{
-			"path": "../../libs/langs/parsers/meep-tech_grammar"
+			"path": "apps/mote-reader"
+		},
+		{
+			"path": "../../langs/AstrA/core"
+		},
+		{
+			"path": "../../langs/AstrA/parsers/indra-astra"
 		}
 	],
-	"settings": {}
+	"settings": {
+		"rust-analyzer.linkedProjects": [
+			".\\Cargo.toml",
+			".\\Cargo.toml"
+		]
+	}
 }

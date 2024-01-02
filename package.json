@@ -9,5 +9,8 @@
     "cd--strux-parser": "cd libs/langs/strux/parsers/indra-web_strux-parser/",
     "cd--models": "cd libs/models/",
     "cd--mote-reader": "cd apps/mote-reader/app/"
+  },
+  "devDependencies": {
+    "@tauri-apps/cli": "^1.5.9"
   }
 }

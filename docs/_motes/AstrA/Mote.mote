@@ -1,4 +1,0 @@
-# Parts
-- Head (meta, title, styles, scripts, main-docs, data)
-- Body (view, ux, ui, layout, components, modules, widgets, etc)
-- Foot (tests, private/hidden stuff/ extra docs, etc)
